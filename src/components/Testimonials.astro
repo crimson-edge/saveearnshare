@@ -1,0 +1,124 @@
+---
+import { Image } from 'astro:assets';
+
+const testimonials = [
+  {
+    name: "Sarah Mitchell",
+    role: "Early Career Professional",
+    quote: "The budgeting templates and investment guides have been game-changing. I've finally gotten control of my finances and started building wealth for my future. The weekly newsletter keeps me motivated and informed!",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=200&h=200",
+    imageCredit: "Photo by Christina @ wocintechchat.com on Unsplash"
+  },
+  {
+    name: "Marcus Chen",
+    role: "Small Business Owner",
+    quote: "The debt reduction calculator helped me create a solid plan to become debt-free. Combined with the educational resources, I've learned so much about personal finance. Now I'm teaching these principles to my kids!",
+    image: "https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?auto=format&fit=crop&q=80&w=200&h=200",
+    imageCredit: "Photo by Phillip Goldsberry on Unsplash"
+  },
+  {
+    name: "Emma Rodriguez",
+    role: "Healthcare Professional",
+    quote: "The retirement planning resources helped me understand exactly what I needed to do to secure my future. The investment guides are clear and practical. I feel so much more confident about my financial decisions now!",
+    image: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&q=80&w=200&h=200",
+    imageCredit: "Photo by Christina @ wocintechchat.com on Unsplash"
+  }
+];
+
+const testimonialSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": testimonials.map((testimonial, index) => ({
+    "@type": "Review",
+    "position": index + 1,
+    "author": {
+      "@type": "Person",
+      "name": testimonial.name
+    },
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": "5",
+      "bestRating": "5"
+    },
+    "reviewBody": testimonial.quote,
+    "itemReviewed": {
+      "@type": "Product",
+      "name": "Money Mastery Resources",
+      "description": "Comprehensive financial education platform"
+    }
+  }))
+};
+---
+
+<section class="bg-gradient-to-b from-gray-900 to-gray-800 py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white lg:text-4xl">
+        What Our Community Says
+      </h2>
+      <p class="mt-3 sm:mt-4 text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
+        Hear from people who have transformed their financial future with our resources
+      </p>
+    </div>
+
+    <div class="mt-10 sm:mt-12 lg:mt-16 grid gap-6 md:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      {testimonials.map((testimonial) => (
+        <div class="relative bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-xl transform transition duration-500 hover:scale-105">
+          <div class="absolute inset-x-0 -top-4 flex justify-center">
+            <Image
+              class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-gray-800 shadow-lg object-cover"
+              src={testimonial.image}
+              alt={testimonial.name}
+              title={testimonial.imageCredit}
+              width={200}
+              height={200}
+            />
+          </div>
+          <div class="mt-8 sm:mt-10">
+            <blockquote>
+              <p class="text-base sm:text-lg text-gray-200 leading-relaxed">
+                "{testimonial.quote}"
+              </p>
+            </blockquote>
+            <div class="mt-4 sm:mt-6">
+              <p class="text-sm sm:text-base font-semibold text-primary-400">{testimonial.name}</p>
+              <p class="text-xs sm:text-sm text-gray-400">{testimonial.role}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Smooth hover transitions */
+  .transform {
+    will-change: transform;
+  }
+  
+  /* Prevent card overflow on small screens */
+  @media (max-width: 640px) {
+    blockquote p {
+      display: -webkit-box;
+      -webkit-line-clamp: 6;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+
+  /* Improved touch targets for mobile */
+  @media (max-width: 640px) {
+    .rounded-2xl {
+      border-radius: 1rem;
+    }
+  }
+
+  /* Prevent image overflow */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+</style>
+
+<script type="application/ld+json" set:html={JSON.stringify(testimonialSchema)} />

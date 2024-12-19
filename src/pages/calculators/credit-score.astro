@@ -1,0 +1,198 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Credit Score Simulator - Money Mastery Resources">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">Credit Score Simulator</h1>
+    
+    <div class="bg-white shadow-lg rounded-xl p-6 sm:p-8">
+      <form id="creditScoreForm" class="space-y-6">
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label for="currentScore" class="block text-sm font-medium text-gray-700 mb-2">Current Credit Score</label>
+            <input 
+              type="number" 
+              id="currentScore" 
+              name="currentScore" 
+              required 
+              min="300" 
+              max="850"
+              class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+              placeholder="Your current credit score"
+            />
+          </div>
+          
+          <div>
+            <label for="creditUtilization" class="block text-sm font-medium text-gray-700 mb-2">Current Credit Utilization (%)</label>
+            <input 
+              type="number" 
+              id="creditUtilization" 
+              name="creditUtilization" 
+              required 
+              min="0" 
+              max="100" 
+              step="1"
+              class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+              placeholder="Percentage of credit used"
+            />
+          </div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label for="latePayments" class="block text-sm font-medium text-gray-700 mb-2">Number of Late Payments (Last 12 Months)</label>
+            <input 
+              type="number" 
+              id="latePayments" 
+              name="latePayments" 
+              required 
+              min="0" 
+              max="12"
+              class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+              placeholder="Number of late payments"
+            />
+          </div>
+          
+          <div>
+            <label for="newCreditInquiries" class="block text-sm font-medium text-gray-700 mb-2">Recent Credit Inquiries</label>
+            <input 
+              type="number" 
+              id="newCreditInquiries" 
+              name="newCreditInquiries" 
+              required 
+              min="0" 
+              max="10"
+              class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+              placeholder="Number of recent inquiries"
+            />
+          </div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label for="accountAge" class="block text-sm font-medium text-gray-700 mb-2">Average Account Age (Years)</label>
+            <input 
+              type="number" 
+              id="accountAge" 
+              name="accountAge" 
+              required 
+              min="0" 
+              step="0.1"
+              class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+              placeholder="Average age of credit accounts"
+            />
+          </div>
+          
+          <div>
+            <label for="simulationScenario" class="block text-sm font-medium text-gray-700 mb-2">Simulation Scenario</label>
+            <select 
+              id="simulationScenario" 
+              name="simulationScenario" 
+              required 
+              class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+            >
+              <option value="payOffDebt">Pay Off Credit Card Debt</option>
+              <option value="reduceInquiries">Reduce Credit Inquiries</option>
+              <option value="onTimePayments">Consistent On-Time Payments</option>
+              <option value="increaseLimit">Increase Credit Limit</option>
+            </select>
+          </div>
+        </div>
+        
+        <button 
+          type="submit" 
+          class="w-full inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
+        >
+          Simulate Credit Score Impact
+        </button>
+      </form>
+      
+      <div id="creditScoreResults" class="mt-6 hidden">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Credit Score Projection</h2>
+        <div class="bg-gray-50 p-6 rounded-xl space-y-4">
+          <div class="flex justify-between">
+            <span class="font-medium text-gray-700">Current Credit Score</span>
+            <span id="currentScoreResult" class="font-bold text-gray-900"></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="font-medium text-gray-700">Projected Credit Score</span>
+            <span id="projectedScoreResult" class="font-bold text-gray-900"></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="font-medium text-gray-700">Score Change</span>
+            <span id="scoreChangeResult" class="font-bold text-gray-900"></span>
+          </div>
+        </div>
+        
+        <div class="mt-6 bg-blue-50 p-4 rounded-md">
+          <h3 class="font-semibold text-blue-800 mb-2">Credit Score Improvement Recommendations</h3>
+          <p id="creditRecommendations" class="text-blue-700"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('creditScoreForm');
+  const resultsDiv = document.getElementById('creditScoreResults');
+  
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Gather input values
+    const currentScore = parseFloat(document.getElementById('currentScore').value);
+    const creditUtilization = parseFloat(document.getElementById('creditUtilization').value);
+    const latePayments = parseFloat(document.getElementById('latePayments').value);
+    const newCreditInquiries = parseFloat(document.getElementById('newCreditInquiries').value);
+    const accountAge = parseFloat(document.getElementById('accountAge').value);
+    const simulationScenario = document.getElementById('simulationScenario').value;
+    
+    // Calculate projected score change based on scenario
+    let scoreChange = 0;
+    
+    switch (simulationScenario) {
+      case 'payOffDebt':
+        // Reduce credit utilization
+        scoreChange = creditUtilization > 30 ? 50 : 20;
+        break;
+      case 'reduceInquiries':
+        // Reduce new credit inquiries
+        scoreChange = newCreditInquiries > 3 ? 40 : 15;
+        break;
+      case 'onTimePayments':
+        // Consistent on-time payments
+        scoreChange = latePayments === 0 ? 30 : -10;
+        break;
+      case 'increaseLimit':
+        // Increase credit limit
+        scoreChange = accountAge > 5 ? 25 : 10;
+        break;
+    }
+    
+    const projectedScore = Math.min(850, Math.max(300, currentScore + scoreChange));
+    
+    // Update results
+    document.getElementById('currentScoreResult').textContent = currentScore;
+    document.getElementById('projectedScoreResult').textContent = projectedScore;
+    document.getElementById('scoreChangeResult').textContent = `${scoreChange > 0 ? '+' : ''}${scoreChange}`;
+    
+    // Generate recommendations
+    const recommendationsEl = document.getElementById('creditRecommendations');
+    if (projectedScore < 600) {
+      recommendationsEl.textContent = "⚠️ Your credit score needs significant improvement. Focus on reducing debt and making consistent on-time payments.";
+    } else if (projectedScore >= 600 && projectedScore < 700) {
+      recommendationsEl.textContent = "💡 You're making progress. Continue to manage credit responsibly and avoid new credit inquiries.";
+    } else if (projectedScore >= 700 && projectedScore < 800) {
+      recommendationsEl.textContent = "🌱 Great job! You're in a good credit range. Maintain your positive financial habits.";
+    } else {
+      recommendationsEl.textContent = "🌟 Excellent credit score! Continue your responsible credit management.";
+    }
+    
+    // Show results
+    resultsDiv.classList.remove('hidden');
+  });
+});
+</script>

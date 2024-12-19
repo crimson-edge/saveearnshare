@@ -1,0 +1,188 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const post = {
+  title: 'Mastering Your Credit Score: A Comprehensive Guide to Financial Empowerment',
+  author: 'David Smith',
+  date: '2024-04-13',
+  featuredImage: '/images/blog/credit-scores-featured.jpg?v=2',
+  imageAttribution: 'Photo by Markus Winkler on Unsplash',
+  readTime: '14 min read',
+  metaDescription: 'Unlock the secrets of credit scores. Learn how to understand, improve, and leverage your credit for better financial opportunities.',
+  content: [
+    {
+      type: 'introduction',
+      text: 'Your credit score is more than just a number—it\'s a powerful financial passport that can open doors to opportunities or create barriers to your financial goals. This comprehensive guide will demystify credit scores and provide actionable strategies for improvement.'
+    },
+    {
+      type: 'heading',
+      text: 'What is a Credit Score?'
+    },
+    {
+      type: 'paragraph',
+      text: 'A credit score is a numerical representation of your creditworthiness, calculated based on your credit history and financial behaviors.'
+    },
+    {
+      type: 'list',
+      items: [
+        'Ranges from 300 to 850',
+        'Higher scores indicate lower credit risk',
+        'Used by lenders, landlords, and employers'
+      ]
+    },
+    {
+      type: 'heading',
+      text: 'Credit Score Components'
+    },
+    {
+      type: 'section',
+      title: 'Payment History (35%)',
+      content: 'Your track record of paying bills on time. Late payments, collections, and bankruptcies negatively impact this factor.'
+    },
+    {
+      type: 'section',
+      title: 'Credit Utilization (30%)',
+      content: 'The ratio of your current credit card balances to your credit limits. Lower utilization is better.'
+    },
+    {
+      type: 'section',
+      title: 'Length of Credit History (15%)',
+      content: 'How long you\'ve had credit accounts. Longer histories generally indicate more stability.'
+    },
+    {
+      type: 'section',
+      title: 'Credit Mix (10%)',
+      content: 'The variety of credit types you have, such as credit cards, mortgages, and personal loans.'
+    },
+    {
+      type: 'section',
+      title: 'New Credit Inquiries (10%)',
+      content: 'The number of recent credit applications. Too many can signal financial distress.'
+    },
+    {
+      type: 'heading',
+      text: 'Credit Score Ranges'
+    },
+    {
+      type: 'list',
+      items: [
+        '300-579: Poor',
+        '580-669: Fair',
+        '670-739: Good',
+        '740-799: Very Good',
+        '800-850: Excellent'
+      ]
+    },
+    {
+      type: 'heading',
+      text: 'Strategies to Improve Your Credit Score'
+    },
+    {
+      type: 'list',
+      items: [
+        'Pay all bills on time',
+        'Keep credit card balances low',
+        'Don\'t close old credit accounts',
+        'Limit new credit applications',
+        'Regularly check credit reports for errors'
+      ]
+    },
+    {
+      type: 'heading',
+      text: 'Tools and Resources'
+    },
+    {
+      type: 'list',
+      items: [
+        'Free annual credit reports',
+        'Credit monitoring services',
+        'Credit score simulators',
+        'Credit counseling agencies'
+      ]
+    },
+    {
+      type: 'heading',
+      text: 'Common Credit Score Myths'
+    },
+    {
+      type: 'list',
+      items: [
+        'Checking your credit hurts your score (False)',
+        'You only have one credit score (False)',
+        'Closing credit cards improves your score (False)',
+        'Income affects your credit score (False)'
+      ]
+    },
+    {
+      type: 'conclusion',
+      text: 'Your credit score is a powerful financial tool. By understanding its mechanics and consistently making smart financial choices, you can unlock better opportunities and financial freedom.'
+    }
+  ]
+};
+
+const seoMetadata = {
+  title: post.title,
+  description: post.metaDescription,
+  image: post.featuredImage
+};
+---
+
+<Layout 
+  title={seoMetadata.title} 
+  description={seoMetadata.description}
+  image={seoMetadata.image}
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <picture>
+      <source srcset={`${post.featuredImage.replace('.jpg', '.webp')}`} type="image/webp" />
+      <img 
+        src={post.featuredImage} 
+        alt="Credit score analysis with financial charts and credit report visualization" 
+        class="w-full h-96 object-cover rounded-lg mb-8"
+        width="1200"
+        height="800"
+        loading="lazy"
+      />
+    </picture>
+    <p class="text-gray-600 text-sm mb-8">{post.imageAttribution}</p>
+    
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">{post.title}</h1>
+      <div class="flex items-center text-gray-600 mb-4">
+        <span>By {post.author}</span>
+        <span class="mx-2">•</span>
+        <time>{post.date}</time>
+        <span class="mx-2">•</span>
+        <span>{post.readTime}</span>
+      </div>
+    </header>
+    
+    <div class="prose lg:prose-xl">
+      {post.content.map(section => {
+        switch(section.type) {
+          case 'introduction':
+            return <p class="text-xl font-semibold text-gray-800">{section.text}</p>;
+          case 'paragraph':
+            return <p>{section.text}</p>;
+          case 'heading':
+            return <h2 class="mt-8 mb-4 text-2xl font-bold">{section.text}</h2>;
+          case 'section':
+            return (
+              <div class="my-6">
+                <h3 class="text-xl font-semibold mb-3">{section.title}</h3>
+                <p>{section.content}</p>
+              </div>
+            );
+          case 'list':
+            return (
+              <ul class="list-disc list-inside mb-4 space-y-2">
+                {section.items.map(item => <li>{item}</li>)}
+              </ul>
+            );
+          case 'conclusion':
+            return <p class="mt-8 italic text-gray-700">{section.text}</p>;
+        }
+      })}
+    </div>
+  </article>
+</Layout>

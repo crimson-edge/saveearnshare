@@ -1,0 +1,138 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const productData = {
+  name: "Digital Couponing Guide",
+  description: "Comprehensive guide to digital couponing, rewards programs, and smart shopping strategies to help you save money on everyday purchases."
+};
+---
+
+<Layout 
+  title="Digital Couponing Guide" 
+  description={productData.description}
+  product={productData}
+>
+  <!-- Featured Image Section -->
+  <div class="relative h-[300px] sm:h-[400px] overflow-hidden">
+    <img 
+      src="/images/coupons/digital-couponing-hero.webp" 
+      alt="Digital Couponing and Mobile Savings"
+      class="w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-black/50 to-black/20 flex items-center justify-center">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-white text-center max-w-4xl px-4">
+        Master the Art of Digital Couponing
+      </h1>
+    </div>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="prose prose-lg max-w-none">
+      <h2 class="text-2xl font-semibold text-gray-900 mt-8 mb-4">What is Digital Couponing?</h2>
+      <p class="mb-6">
+        Digital couponing is the modern way to save money using electronic or mobile coupons instead of traditional paper ones.
+        These coupons can be found on retailer websites, apps, and dedicated coupon platforms.
+      </p>
+
+      <div class="bg-gray-50 rounded-lg p-6 mb-8">
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">Advantages of Digital Coupons:</h3>
+        <ul class="list-disc pl-6 space-y-2">
+          <li>No printing or clipping required</li>
+          <li>Easy to organize and track</li>
+          <li>Often exclusive digital-only deals</li>
+          <li>Instant savings at checkout</li>
+          <li>Environmental friendly</li>
+        </ul>
+      </div>
+
+      <h2 class="text-2xl font-semibold text-gray-900 mt-8 mb-4">Where to Find Digital Coupons</h2>
+      
+      <div class="space-y-6">
+        <div class="border-b pb-6">
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Retailer Apps and Websites</h3>
+          <p class="mb-4">
+            Most major retailers offer digital coupons through their mobile apps and websites.
+          </p>
+          <ul class="list-disc pl-6 space-y-2">
+            <li>Store loyalty program apps</li>
+            <li>Retailer websites</li>
+            <li>Email newsletters</li>
+          </ul>
+        </div>
+
+        <div class="border-b pb-6">
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Coupon Websites and Apps</h3>
+          <p class="mb-4">
+            Dedicated coupon platforms aggregate deals from multiple retailers.
+          </p>
+          <ul class="list-disc pl-6 space-y-2">
+            <li>Rakuten</li>
+            <li>Ibotta</li>
+            <li>Coupons.com</li>
+            <li>RetailMeNot</li>
+          </ul>
+        </div>
+
+        <div class="border-b pb-6">
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Browser Extensions</h3>
+          <p class="mb-4">
+            These tools automatically find and apply coupon codes when shopping online.
+          </p>
+          <ul class="list-disc pl-6 space-y-2">
+            <li>Honey</li>
+            <li>Capital One Shopping</li>
+            <li>Rakuten Extension</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2 class="text-2xl font-semibold text-gray-900 mt-8 mb-4">Digital Couponing Best Practices</h2>
+      
+      <div class="bg-primary/5 rounded-lg p-6 mb-8">
+        <ol class="list-decimal pl-6 space-y-4">
+          <li>
+            <strong>Create a Digital System:</strong>
+            <p class="mt-2">Organize your digital coupons by category and expiration date.</p>
+          </li>
+          <li>
+            <strong>Stack Digital Savings:</strong>
+            <p class="mt-2">Combine store apps, cashback apps, and browser extensions for maximum savings.</p>
+          </li>
+          <li>
+            <strong>Check Before Shopping:</strong>
+            <p class="mt-2">Always look for digital coupons before making a purchase, both online and in-store.</p>
+          </li>
+          <li>
+            <strong>Enable Notifications:</strong>
+            <p class="mt-2">Stay updated on new deals and expiring coupons through app notifications.</p>
+          </li>
+          <li>
+            <strong>Compare Prices:</strong>
+            <p class="mt-2">Use price comparison tools alongside digital coupons to ensure the best deal.</p>
+          </li>
+        </ol>
+      </div>
+
+      <h2 class="text-2xl font-semibold text-gray-900 mt-8 mb-4">Common Digital Couponing Mistakes</h2>
+      <ul class="list-disc pl-6 space-y-2 mb-8">
+        <li>Forgetting to activate offers before shopping</li>
+        <li>Not reading the terms and conditions</li>
+        <li>Missing out on stackable savings opportunities</li>
+        <li>Letting digital coupons expire</li>
+        <li>Not checking for better deals on other platforms</li>
+      </ul>
+
+      <div class="bg-gray-50 rounded-lg p-6 mt-8">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">Getting Started with Digital Couponing</h2>
+        <p class="mb-4">
+          Begin by downloading your favorite stores' apps and signing up for their loyalty programs.
+          Install 1-2 reliable browser extensions and familiarize yourself with major cashback platforms.
+        </p>
+        <p>
+          Remember to check our other guides and resources for more advanced saving strategies and tips
+          on combining digital coupons with other money-saving techniques.
+        </p>
+      </div>
+    </div>
+  </div>
+</Layout>

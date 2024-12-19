@@ -1,0 +1,152 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Debt Repayment Calculator - Money Mastery Resources">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">Debt Repayment Calculator</h1>
+    
+    <div class="bg-white shadow-lg rounded-xl p-6 sm:p-8">
+      <form id="debtRepaymentForm" class="space-y-6">
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label for="totalDebt" class="block text-sm font-medium text-gray-700 mb-2">Total Debt Amount</label>
+            <input 
+              type="number" 
+              id="totalDebt" 
+              name="totalDebt" 
+              required 
+              class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+              placeholder="Enter total debt balance"
+            />
+          </div>
+          
+          <div>
+            <label for="interestRate" class="block text-sm font-medium text-gray-700 mb-2">Annual Interest Rate (%)</label>
+            <input 
+              type="number" 
+              id="interestRate" 
+              name="interestRate" 
+              required 
+              step="0.01" 
+              class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+              placeholder="Annual interest rate"
+            />
+          </div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label for="monthlyPayment" class="block text-sm font-medium text-gray-700 mb-2">Monthly Payment</label>
+            <input 
+              type="number" 
+              id="monthlyPayment" 
+              name="monthlyPayment" 
+              required 
+              class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+              placeholder="Amount you can pay monthly"
+            />
+          </div>
+          
+          <div>
+            <label for="minimumPayment" class="block text-sm font-medium text-gray-700 mb-2">Minimum Monthly Payment</label>
+            <input 
+              type="number" 
+              id="minimumPayment" 
+              name="minimumPayment" 
+              required 
+              class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+              placeholder="Minimum required payment"
+            />
+          </div>
+        </div>
+        
+        <button 
+          type="submit" 
+          class="w-full inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
+        >
+          Calculate Debt Repayment
+        </button>
+      </form>
+      
+      <div id="debtResults" class="mt-6 hidden">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Debt Repayment Plan</h2>
+        <div class="bg-gray-50 p-6 rounded-xl space-y-4">
+          <div class="flex justify-between">
+            <span class="font-medium text-gray-700">Total Months to Repay</span>
+            <span id="monthsToRepayResult" class="font-bold text-gray-900"></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="font-medium text-gray-700">Total Interest Paid</span>
+            <span id="totalInterestResult" class="font-bold text-gray-900"></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="font-medium text-gray-700">Total Amount Paid</span>
+            <span id="totalAmountPaidResult" class="font-bold text-gray-900"></span>
+          </div>
+        </div>
+        
+        <div class="mt-6 bg-blue-50 p-4 rounded-md">
+          <h3 class="font-semibold text-blue-800 mb-2">Debt Repayment Recommendations</h3>
+          <p id="debtRecommendations" class="text-blue-700"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('debtRepaymentForm');
+  const resultsDiv = document.getElementById('debtResults');
+  
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Gather input values
+    const totalDebt = parseFloat(document.getElementById('totalDebt').value);
+    const interestRate = parseFloat(document.getElementById('interestRate').value) / 100 / 12; // Monthly rate
+    const monthlyPayment = parseFloat(document.getElementById('monthlyPayment').value);
+    const minimumPayment = parseFloat(document.getElementById('minimumPayment').value);
+    
+    // Calculate debt repayment
+    let balance = totalDebt;
+    let months = 0;
+    let totalInterestPaid = 0;
+    
+    while (balance > 0) {
+      const monthlyInterest = balance * interestRate;
+      totalInterestPaid += monthlyInterest;
+      
+      // Apply payment
+      const appliedPayment = Math.min(monthlyPayment, balance + monthlyInterest);
+      balance = Math.max(0, balance + monthlyInterest - appliedPayment);
+      
+      months++;
+      
+      // Prevent infinite loop
+      if (months > 600) break;
+    }
+    
+    const totalAmountPaid = totalDebt + totalInterestPaid;
+    
+    // Update results
+    document.getElementById('monthsToRepayResult').textContent = `${months} months`;
+    document.getElementById('totalInterestResult').textContent = `$${totalInterestPaid.toFixed(2)}`;
+    document.getElementById('totalAmountPaidResult').textContent = `$${totalAmountPaid.toFixed(2)}`;
+    
+    // Generate recommendations
+    const recommendationsEl = document.getElementById('debtRecommendations');
+    if (months > 120) {
+      recommendationsEl.textContent = "⚠️ Your debt repayment will take over 10 years. Consider debt consolidation or increasing monthly payments.";
+    } else if (totalInterestPaid > totalDebt * 0.5) {
+      recommendationsEl.textContent = "💡 You're paying a significant amount in interest. Look into balance transfer options or negotiating lower rates.";
+    } else {
+      recommendationsEl.textContent = "🌟 You have a solid debt repayment strategy. Stay consistent with your payments.";
+    }
+    
+    // Show results
+    resultsDiv.classList.remove('hidden');
+  });
+});
+</script>

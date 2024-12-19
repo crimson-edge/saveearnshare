@@ -1,0 +1,184 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const post = {
+  title: 'Investment Strategies for Beginners: A Comprehensive Guide to Building Wealth',
+  author: 'Michael Chen',
+  date: '2024-04-14',
+  featuredImage: '/images/blog/investing-featured.jpg?v=2',
+  imageAttribution: 'Photo by Austin Distel on Unsplash',
+  readTime: '15 min read',
+  metaDescription: 'Discover proven investment strategies for beginners. Learn how to start investing, minimize risks, and build a robust financial portfolio.',
+  content: [
+    {
+      type: 'introduction',
+      text: 'Investing isn\'t just for Wall Street professionals—it\'s a powerful tool for anyone looking to secure their financial future. This comprehensive guide will demystify investing and provide you with actionable strategies to start growing your wealth.'
+    },
+    {
+      type: 'heading',
+      text: 'Why Investing is Essential for Financial Growth'
+    },
+    {
+      type: 'paragraph',
+      text: 'In an era of economic uncertainty, investing is no longer optional but crucial for long-term financial stability.'
+    },
+    {
+      type: 'list',
+      items: [
+        'Combat inflation',
+        'Generate passive income',
+        'Build long-term wealth',
+        'Achieve financial independence',
+        'Secure retirement funds'
+      ]
+    },
+    {
+      type: 'heading',
+      text: 'Understanding Investment Fundamentals'
+    },
+    {
+      type: 'section',
+      title: 'Risk and Return',
+      content: 'Every investment involves a balance between potential risk and potential return. Understanding this relationship is key to making informed decisions.'
+    },
+    {
+      type: 'list',
+      items: [
+        'Low-risk investments: Lower returns, more stability',
+        'High-risk investments: Higher potential returns, more volatility',
+        'Diversification helps manage overall portfolio risk'
+      ]
+    },
+    {
+      type: 'heading',
+      text: 'Investment Vehicle Options for Beginners'
+    },
+    {
+      type: 'section',
+      title: 'Stocks',
+      content: 'Represent ownership in a company and offer potential for capital appreciation and dividends.'
+    },
+    {
+      type: 'section',
+      title: 'Bonds',
+      content: 'Debt instruments that provide fixed income and are generally less risky than stocks.'
+    },
+    {
+      type: 'section',
+      title: 'Mutual Funds and ETFs',
+      content: 'Professionally managed investment funds that provide instant diversification.'
+    },
+    {
+      type: 'heading',
+      text: 'Creating Your First Investment Strategy'
+    },
+    {
+      type: 'list',
+      items: [
+        'Assess your financial goals',
+        'Determine risk tolerance',
+        'Start with low-cost index funds',
+        'Regularly contribute to investments',
+        'Rebalance portfolio annually'
+      ]
+    },
+    {
+      type: 'heading',
+      text: 'Investment Accounts to Consider'
+    },
+    {
+      type: 'list',
+      items: [
+        '401(k): Employer-sponsored retirement account',
+        'IRA: Individual Retirement Account',
+        'Roth IRA: Tax-advantaged retirement savings',
+        'Taxable brokerage accounts'
+      ]
+    },
+    {
+      type: 'heading',
+      text: 'Common Investment Mistakes to Avoid'
+    },
+    {
+      type: 'list',
+      items: [
+        'Trying to time the market',
+        'Not diversifying investments',
+        'Letting emotions drive investment decisions',
+        'Ignoring investment fees',
+        'Not starting early enough'
+      ]
+    },
+    {
+      type: 'conclusion',
+      text: 'Investing is a journey of continuous learning. Start small, stay consistent, and remember that time in the market is more important than timing the market.'
+    }
+  ]
+};
+
+const seoMetadata = {
+  title: post.title,
+  description: post.metaDescription,
+  image: post.featuredImage
+};
+---
+
+<Layout 
+  title={seoMetadata.title} 
+  description={seoMetadata.description}
+  image={seoMetadata.image}
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <picture>
+      <source srcset={`${post.featuredImage.replace('.jpg', '.webp')}`} type="image/webp" />
+      <img 
+        src={post.featuredImage} 
+        alt="Investment strategy visualization with stock market graphs and financial planning tools" 
+        class="w-full h-96 object-cover rounded-lg mb-8"
+        width="1200"
+        height="800"
+        loading="lazy"
+      />
+    </picture>
+    <p class="text-gray-600 text-sm mb-8">{post.imageAttribution}</p>
+    
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">{post.title}</h1>
+      <div class="flex items-center text-gray-600 mb-4">
+        <span>By {post.author}</span>
+        <span class="mx-2">•</span>
+        <time>{post.date}</time>
+        <span class="mx-2">•</span>
+        <span>{post.readTime}</span>
+      </div>
+    </header>
+    
+    <div class="prose lg:prose-xl">
+      {post.content.map(section => {
+        switch(section.type) {
+          case 'introduction':
+            return <p class="text-xl font-semibold text-gray-800">{section.text}</p>;
+          case 'paragraph':
+            return <p>{section.text}</p>;
+          case 'heading':
+            return <h2 class="mt-8 mb-4 text-2xl font-bold">{section.text}</h2>;
+          case 'section':
+            return (
+              <div class="my-6">
+                <h3 class="text-xl font-semibold mb-3">{section.title}</h3>
+                <p>{section.content}</p>
+              </div>
+            );
+          case 'list':
+            return (
+              <ul class="list-disc list-inside mb-4 space-y-2">
+                {section.items.map(item => <li>{item}</li>)}
+              </ul>
+            );
+          case 'conclusion':
+            return <p class="mt-8 italic text-gray-700">{section.text}</p>;
+        }
+      })}
+    </div>
+  </article>
+</Layout>

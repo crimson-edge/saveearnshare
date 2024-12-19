@@ -1,0 +1,174 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Retirement Savings Calculator - Money Mastery Resources">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">Retirement Savings Calculator</h1>
+    
+    <div class="bg-white shadow-lg rounded-xl p-6 sm:p-8">
+      <form id="retirementForm" class="space-y-6">
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label for="currentAge" class="block text-sm font-medium text-gray-700 mb-2">Current Age</label>
+            <input 
+              type="number" 
+              id="currentAge" 
+              name="currentAge" 
+              required 
+              class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+              placeholder="Your current age"
+            />
+          </div>
+          
+          <div>
+            <label for="retirementAge" class="block text-sm font-medium text-gray-700 mb-2">Desired Retirement Age</label>
+            <input 
+              type="number" 
+              id="retirementAge" 
+              name="retirementAge" 
+              required 
+              class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+              placeholder="Age you want to retire"
+            />
+          </div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label for="currentSavings" class="block text-sm font-medium text-gray-700 mb-2">Current Retirement Savings</label>
+            <input 
+              type="number" 
+              id="currentSavings" 
+              name="currentSavings" 
+              required 
+              class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+              placeholder="Total current savings"
+            />
+          </div>
+          
+          <div>
+            <label for="monthlyContribution" class="block text-sm font-medium text-gray-700 mb-2">Monthly Contribution</label>
+            <input 
+              type="number" 
+              id="monthlyContribution" 
+              name="monthlyContribution" 
+              required 
+              class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+              placeholder="Monthly retirement contribution"
+            />
+          </div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label for="expectedReturn" class="block text-sm font-medium text-gray-700 mb-2">Expected Annual Return (%)</label>
+            <input 
+              type="number" 
+              id="expectedReturn" 
+              name="expectedReturn" 
+              required 
+              step="0.1" 
+              class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+              placeholder="Expected investment return"
+            />
+          </div>
+          
+          <div>
+            <label for="annualInflation" class="block text-sm font-medium text-gray-700 mb-2">Expected Inflation (%)</label>
+            <input 
+              type="number" 
+              id="annualInflation" 
+              name="annualInflation" 
+              required 
+              step="0.1" 
+              class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+              placeholder="Annual inflation rate"
+            />
+          </div>
+        </div>
+        
+        <button 
+          type="submit" 
+          class="w-full inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
+        >
+          Calculate Retirement Savings
+        </button>
+      </form>
+      
+      <div id="retirementResults" class="mt-6 hidden">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Retirement Projection</h2>
+        <div class="bg-gray-50 p-6 rounded-xl space-y-4">
+          <div class="flex justify-between">
+            <span class="font-medium text-gray-700">Total Retirement Savings</span>
+            <span id="totalSavingsResult" class="font-bold text-gray-900"></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="font-medium text-gray-700">Years Until Retirement</span>
+            <span id="yearsToRetirementResult" class="font-bold text-gray-900"></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="font-medium text-gray-700">Estimated Monthly Income in Retirement</span>
+            <span id="monthlyIncomeResult" class="font-bold text-gray-900"></span>
+          </div>
+        </div>
+        
+        <div class="mt-6 bg-blue-50 p-4 rounded-md">
+          <h3 class="font-semibold text-blue-800 mb-2">Retirement Planning Recommendations</h3>
+          <p id="retirementRecommendations" class="text-blue-700"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('retirementForm');
+  const resultsDiv = document.getElementById('retirementResults');
+  
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Gather input values
+    const currentAge = parseFloat(document.getElementById('currentAge').value);
+    const retirementAge = parseFloat(document.getElementById('retirementAge').value);
+    const currentSavings = parseFloat(document.getElementById('currentSavings').value);
+    const monthlyContribution = parseFloat(document.getElementById('monthlyContribution').value);
+    const expectedReturn = parseFloat(document.getElementById('expectedReturn').value) / 100;
+    const annualInflation = parseFloat(document.getElementById('annualInflation').value) / 100;
+    
+    // Calculate years to retirement
+    const yearsToRetirement = retirementAge - currentAge;
+    
+    // Calculate total retirement savings
+    let totalSavings = currentSavings;
+    for (let i = 0; i < yearsToRetirement; i++) {
+      totalSavings = (totalSavings + (monthlyContribution * 12)) * (1 + expectedReturn);
+    }
+    
+    // Estimate monthly income (using 4% withdrawal rule)
+    const monthlyIncome = (totalSavings * 0.04) / 12;
+    
+    // Update results
+    document.getElementById('totalSavingsResult').textContent = `$${totalSavings.toFixed(2)}`;
+    document.getElementById('yearsToRetirementResult').textContent = `${yearsToRetirement} years`;
+    document.getElementById('monthlyIncomeResult').textContent = `$${monthlyIncome.toFixed(2)}`;
+    
+    // Generate recommendations
+    const recommendationsEl = document.getElementById('retirementRecommendations');
+    if (yearsToRetirement < 15) {
+      recommendationsEl.textContent = "⚠️ You have limited time to save. Consider maximizing contributions and exploring catch-up strategies.";
+    } else if (monthlyIncome < 3000) {
+      recommendationsEl.textContent = "💡 Your projected retirement income seems low. Look into increasing contributions or exploring additional income sources.";
+    } else if (totalSavings < 500000) {
+      recommendationsEl.textContent = "🌱 You're on the right track, but continue to look for ways to increase your savings and investments.";
+    } else {
+      recommendationsEl.textContent = "🌟 Great job! You're making solid progress towards your retirement goals.";
+    }
+    
+    // Show results
+    resultsDiv.classList.remove('hidden');
+  });
+});
+</script>

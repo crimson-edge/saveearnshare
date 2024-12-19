@@ -1,0 +1,204 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const post = {
+  title: 'Mastering Your Finances: A Comprehensive Guide to Getting Started with Budgeting',
+  author: 'Sarah Johnson',
+  date: '2024-04-15',
+  featuredImage: '/images/blog/budgeting-featured.jpg',
+  imageAttribution: 'Photo by Towfiqu barbhuiya on Unsplash',
+  readTime: '12 min read',
+  metaDescription: 'Unlock financial success with our ultimate budgeting guide. Learn proven strategies to track expenses, save money, and achieve your financial goals.',
+  content: [
+    {
+      type: 'introduction',
+      text: 'Budgeting is more than just tracking numbers—it\'s about gaining control of your financial destiny. Whether you\'re struggling to make ends meet or looking to optimize your spending, a well-crafted budget is your roadmap to financial freedom.'
+    },
+    {
+      type: 'heading',
+      text: 'Why Budgeting is Critical for Financial Success'
+    },
+    {
+      type: 'paragraph',
+      text: 'In today\'s complex financial landscape, budgeting isn\'t just a recommendation—it\'s a necessity. A strategic budget helps you:'
+    },
+    {
+      type: 'list',
+      items: [
+        'Understand your spending patterns',
+        'Identify unnecessary expenses',
+        'Create a path to financial goals',
+        'Reduce financial stress',
+        'Build long-term wealth'
+      ]
+    },
+    {
+      type: 'heading',
+      text: 'Step-by-Step Budget Creation Process'
+    },
+    {
+      type: 'section',
+      title: '1. Assess Your Current Financial Situation',
+      content: 'Before creating a budget, you need a clear picture of your financial health. Gather all financial statements, including:'
+    },
+    {
+      type: 'list',
+      items: [
+        'Bank statements',
+        'Credit card bills',
+        'Pay stubs',
+        'Investment account statements',
+        'Loan documents'
+      ]
+    },
+    {
+      type: 'section',
+      title: '2. Calculate Your Total Monthly Income',
+      content: 'Include all sources of income:'
+    },
+    {
+      type: 'list',
+      items: [
+        'Primary job salary',
+        'Side hustle earnings',
+        'Passive income',
+        'Investment returns',
+        'Rental income'
+      ]
+    },
+    {
+      type: 'section',
+      title: '3. Track and Categorize Expenses',
+      content: 'Divide your expenses into essential and non-essential categories:'
+    },
+    {
+      type: 'list',
+      items: [
+        'Fixed Expenses: Rent/Mortgage, Utilities, Insurance',
+        'Variable Expenses: Groceries, Dining Out, Entertainment',
+        'Debt Payments: Credit Cards, Loans',
+        'Savings and Investments'
+      ]
+    },
+    {
+      type: 'heading',
+      text: 'Budgeting Methodologies to Consider'
+    },
+    {
+      type: 'section',
+      title: '50/30/20 Budget Rule',
+      content: 'A popular and straightforward budgeting method:'
+    },
+    {
+      type: 'list',
+      items: [
+        '50% for Needs: Essential living expenses',
+        '30% for Wants: Discretionary spending',
+        '20% for Savings and Debt Repayment'
+      ]
+    },
+    {
+      type: 'section',
+      title: 'Zero-Based Budgeting',
+      content: 'Allocate every dollar of income to a specific purpose, ensuring no money is left unaccounted for.'
+    },
+    {
+      type: 'heading',
+      text: 'Tools and Technologies for Effective Budgeting'
+    },
+    {
+      type: 'list',
+      items: [
+        'Spreadsheet software (Excel, Google Sheets)',
+        'Budgeting apps (YNAB, Mint, Personal Capital)',
+        'Automated tracking tools',
+        'Bank budgeting features'
+      ]
+    },
+    {
+      type: 'heading',
+      text: 'Common Budgeting Pitfalls to Avoid'
+    },
+    {
+      type: 'list',
+      items: [
+        'Not tracking small expenses',
+        'Unrealistic goal setting',
+        'Ignoring irregular expenses',
+        'Lack of emergency fund',
+        'Not adjusting budget regularly'
+      ]
+    },
+    {
+      type: 'conclusion',
+      text: 'Budgeting is a skill that improves with practice. Start simple, be consistent, and don\'t get discouraged by initial challenges. Your financial future depends on the habits you build today.'
+    }
+  ]
+};
+
+const seoMetadata = {
+  title: post.title,
+  description: post.metaDescription,
+  image: post.featuredImage
+};
+---
+
+<Layout 
+  title={seoMetadata.title} 
+  description={seoMetadata.description}
+  image={seoMetadata.image}
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <picture>
+      <source srcset={`${post.featuredImage.replace('.jpg', '.webp')}`} type="image/webp" />
+      <img 
+        src={post.featuredImage} 
+        alt="Financial planning and budgeting workspace with calculator, notebook, and financial documents" 
+        class="w-full h-96 object-cover rounded-lg mb-8"
+        width="1200"
+        height="800"
+        loading="lazy"
+      />
+    </picture>
+    <p class="text-gray-600 text-sm mb-8">{post.imageAttribution}</p>
+    
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">{post.title}</h1>
+      <div class="flex items-center text-gray-600 mb-4">
+        <span>By {post.author}</span>
+        <span class="mx-2">•</span>
+        <time>{post.date}</time>
+        <span class="mx-2">•</span>
+        <span>{post.readTime}</span>
+      </div>
+    </header>
+    
+    <div class="prose lg:prose-xl">
+      {post.content.map(section => {
+        switch(section.type) {
+          case 'introduction':
+            return <p class="text-xl font-semibold text-gray-800">{section.text}</p>;
+          case 'paragraph':
+            return <p>{section.text}</p>;
+          case 'heading':
+            return <h2 class="mt-8 mb-4 text-2xl font-bold">{section.text}</h2>;
+          case 'section':
+            return (
+              <div class="my-6">
+                <h3 class="text-xl font-semibold mb-3">{section.title}</h3>
+                <p>{section.content}</p>
+              </div>
+            );
+          case 'list':
+            return (
+              <ul class="list-disc list-inside mb-4 space-y-2">
+                {section.items.map(item => <li>{item}</li>)}
+              </ul>
+            );
+          case 'conclusion':
+            return <p class="mt-8 italic text-gray-700">{section.text}</p>;
+        }
+      })}
+    </div>
+  </article>
+</Layout>

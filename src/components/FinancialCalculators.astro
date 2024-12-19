@@ -1,0 +1,61 @@
+---
+const calculators = [
+  {
+    title: 'Budgeting Calculator',
+    description: 'Create a personalized budget based on income, expenses, and financial goals. Get suggestions for reducing expenses and allocating funds.',
+    icon: '💰',
+    href: '/calculators/budgeting'
+  },
+  {
+    title: 'Debt Repayment Calculator',
+    description: 'Determine the best strategy for paying off high-interest debt. Get a personalized plan showing total interest and payoff period.',
+    icon: '💳',
+    href: '/calculators/debt-repayment'
+  },
+  {
+    title: 'Retirement Savings Calculator',
+    description: 'Calculate how much you need to save for retirement. Get a personalized plan considering age, income, expenses, and retirement goals.',
+    icon: '🏖️',
+    href: '/calculators/retirement-savings'
+  },
+  {
+    title: 'Credit Score Simulator',
+    description: 'Simulate financial scenarios and see how they impact your credit score. Receive personalized recommendations for improving credit.',
+    icon: '📊',
+    href: '/calculators/credit-score'
+  },
+  {
+    title: 'Net Worth Calculator',
+    description: 'Calculate your total assets and liabilities to understand your current financial health and track your wealth-building progress.',
+    icon: '💼',
+    href: '/calculators/net-worth'
+  }
+];
+---
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+  {calculators.map(calculator => (
+    <a href={calculator.href} class="block p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-all group">
+      <div class="flex items-center space-x-4 mb-4">
+        <div class="bg-primary-100 p-3 rounded-full flex-shrink-0 group-hover:bg-primary-200 transition-colors">
+          <span class="text-2xl sm:text-3xl">{calculator.icon}</span>
+        </div>
+        <h3 class="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">
+          {calculator.title}
+        </h3>
+      </div>
+      <p class="text-sm sm:text-base text-gray-600 group-hover:text-gray-800 transition-colors">
+        {calculator.description}
+      </p>
+    </a>
+  ))}
+</div>
+
+<style>
+  .calculator-section {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+</style>

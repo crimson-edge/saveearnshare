@@ -1,0 +1,249 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Net Worth Calculator - Money Mastery Resources">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">Net Worth Calculator</h1>
+    
+    <div class="bg-white shadow-lg rounded-xl p-6 sm:p-8">
+      <form id="netWorthForm" class="space-y-6">
+        <div class="bg-gray-50 p-6 rounded-xl mb-6">
+          <h2 class="text-xl font-bold text-gray-900 mb-4">Assets</h2>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label for="cashSavings" class="block text-sm font-medium text-gray-700 mb-2">Cash and Savings</label>
+              <input 
+                type="number" 
+                id="cashSavings" 
+                name="cashSavings" 
+                required 
+                class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+                placeholder="Checking, savings, money market"
+              />
+            </div>
+            
+            <div>
+              <label for="investmentAccounts" class="block text-sm font-medium text-gray-700 mb-2">Investment Accounts</label>
+              <input 
+                type="number" 
+                id="investmentAccounts" 
+                name="investmentAccounts" 
+                required 
+                class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+                placeholder="Stocks, bonds, mutual funds"
+              />
+            </div>
+            
+            <div>
+              <label for="retirement" class="block text-sm font-medium text-gray-700 mb-2">Retirement Accounts</label>
+              <input 
+                type="number" 
+                id="retirement" 
+                name="retirement" 
+                required 
+                class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+                placeholder="401k, IRA, pension"
+              />
+            </div>
+            
+            <div>
+              <label for="realEstate" class="block text-sm font-medium text-gray-700 mb-2">Real Estate Value</label>
+              <input 
+                type="number" 
+                id="realEstate" 
+                name="realEstate" 
+                required 
+                class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+                placeholder="Home value, property investments"
+              />
+            </div>
+            
+            <div>
+              <label for="vehicleValue" class="block text-sm font-medium text-gray-700 mb-2">Vehicle Value</label>
+              <input 
+                type="number" 
+                id="vehicleValue" 
+                name="vehicleValue" 
+                required 
+                class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+                placeholder="Car, boat, other vehicles"
+              />
+            </div>
+            
+            <div>
+              <label for="otherAssets" class="block text-sm font-medium text-gray-700 mb-2">Other Assets</label>
+              <input 
+                type="number" 
+                id="otherAssets" 
+                name="otherAssets" 
+                required 
+                class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm"
+                placeholder="Collectibles, jewelry, etc."
+              />
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-red-50 p-6 rounded-xl">
+          <h2 class="text-xl font-bold text-red-900 mb-4">Liabilities</h2>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label for="mortgageDebt" class="block text-sm font-medium text-red-700 mb-2">Mortgage Debt</label>
+              <input 
+                type="number" 
+                id="mortgageDebt" 
+                name="mortgageDebt" 
+                required 
+                class="w-full px-4 py-3 border border-red-300 rounded-md shadow-sm"
+                placeholder="Home loan balance"
+              />
+            </div>
+            
+            <div>
+              <label for="autoLoans" class="block text-sm font-medium text-red-700 mb-2">Auto Loans</label>
+              <input 
+                type="number" 
+                id="autoLoans" 
+                name="autoLoans" 
+                required 
+                class="w-full px-4 py-3 border border-red-300 rounded-md shadow-sm"
+                placeholder="Car loan balances"
+              />
+            </div>
+            
+            <div>
+              <label for="creditCardDebt" class="block text-sm font-medium text-red-700 mb-2">Credit Card Debt</label>
+              <input 
+                type="number" 
+                id="creditCardDebt" 
+                name="creditCardDebt" 
+                required 
+                class="w-full px-4 py-3 border border-red-300 rounded-md shadow-sm"
+                placeholder="Total credit card balances"
+              />
+            </div>
+            
+            <div>
+              <label for="studentLoans" class="block text-sm font-medium text-red-700 mb-2">Student Loans</label>
+              <input 
+                type="number" 
+                id="studentLoans" 
+                name="studentLoans" 
+                required 
+                class="w-full px-4 py-3 border border-red-300 rounded-md shadow-sm"
+                placeholder="Education loan balances"
+              />
+            </div>
+            
+            <div>
+              <label for="personalLoans" class="block text-sm font-medium text-red-700 mb-2">Personal Loans</label>
+              <input 
+                type="number" 
+                id="personalLoans" 
+                name="personalLoans" 
+                required 
+                class="w-full px-4 py-3 border border-red-300 rounded-md shadow-sm"
+                placeholder="Other personal loan balances"
+              />
+            </div>
+            
+            <div>
+              <label for="otherDebts" class="block text-sm font-medium text-red-700 mb-2">Other Debts</label>
+              <input 
+                type="number" 
+                id="otherDebts" 
+                name="otherDebts" 
+                required 
+                class="w-full px-4 py-3 border border-red-300 rounded-md shadow-sm"
+                placeholder="Additional outstanding debts"
+              />
+            </div>
+          </div>
+        </div>
+        
+        <button 
+          type="submit" 
+          class="w-full inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
+        >
+          Calculate Net Worth
+        </button>
+      </form>
+      
+      <div id="netWorthResults" class="mt-6 hidden">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Net Worth Analysis</h2>
+        <div class="bg-gray-50 p-6 rounded-xl space-y-4">
+          <div class="flex justify-between">
+            <span class="font-medium text-gray-700">Total Assets</span>
+            <span id="totalAssetsResult" class="font-bold text-gray-900"></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="font-medium text-gray-700">Total Liabilities</span>
+            <span id="totalLiabilitiesResult" class="font-bold text-gray-900"></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="font-medium text-gray-700">Net Worth</span>
+            <span id="netWorthResult" class="font-bold text-gray-900"></span>
+          </div>
+        </div>
+        
+        <div class="mt-6 bg-blue-50 p-4 rounded-md">
+          <h3 class="font-semibold text-blue-800 mb-2">Net Worth Recommendations</h3>
+          <p id="netWorthRecommendations" class="text-blue-700"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('netWorthForm');
+  const resultsDiv = document.getElementById('netWorthResults');
+  
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Gather asset values
+    const cashSavings = parseFloat(document.getElementById('cashSavings').value);
+    const investmentAccounts = parseFloat(document.getElementById('investmentAccounts').value);
+    const retirement = parseFloat(document.getElementById('retirement').value);
+    const realEstate = parseFloat(document.getElementById('realEstate').value);
+    const vehicleValue = parseFloat(document.getElementById('vehicleValue').value);
+    const otherAssets = parseFloat(document.getElementById('otherAssets').value);
+    
+    // Gather liability values
+    const mortgageDebt = parseFloat(document.getElementById('mortgageDebt').value);
+    const autoLoans = parseFloat(document.getElementById('autoLoans').value);
+    const creditCardDebt = parseFloat(document.getElementById('creditCardDebt').value);
+    const studentLoans = parseFloat(document.getElementById('studentLoans').value);
+    const personalLoans = parseFloat(document.getElementById('personalLoans').value);
+    const otherDebts = parseFloat(document.getElementById('otherDebts').value);
+    
+    // Calculate totals
+    const totalAssets = cashSavings + investmentAccounts + retirement + realEstate + vehicleValue + otherAssets;
+    const totalLiabilities = mortgageDebt + autoLoans + creditCardDebt + studentLoans + personalLoans + otherDebts;
+    const netWorth = totalAssets - totalLiabilities;
+    
+    // Update results
+    document.getElementById('totalAssetsResult').textContent = `$${totalAssets.toFixed(2)}`;
+    document.getElementById('totalLiabilitiesResult').textContent = `$${totalLiabilities.toFixed(2)}`;
+    document.getElementById('netWorthResult').textContent = `$${netWorth.toFixed(2)}`;
+    
+    // Generate recommendations
+    const recommendationsEl = document.getElementById('netWorthRecommendations');
+    if (netWorth < 0) {
+      recommendationsEl.textContent = "⚠️ Your liabilities exceed your assets. Focus on reducing debt and increasing savings.";
+    } else if (netWorth < 50000) {
+      recommendationsEl.textContent = "💡 You're building your financial foundation. Continue saving, investing, and reducing debt.";
+    } else if (netWorth >= 50000 && netWorth < 250000) {
+      recommendationsEl.textContent = "🌱 You're making solid progress. Keep diversifying investments and maintaining a balanced financial strategy.";
+    } else {
+      recommendationsEl.textContent = "🌟 Excellent net worth! Continue your smart financial management and consider advanced wealth-building strategies.";
+    }
+    
+    // Show results
+    resultsDiv.classList.remove('hidden');
+  });
+});
+</script>

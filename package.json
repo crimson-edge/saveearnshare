@@ -1,0 +1,28 @@
+{
+  "name": "saveearnshare",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "optimize:images": "bash scripts/optimize-images.sh",
+    "test:performance": "bash scripts/performance-test.sh",
+    "test:accessibility": "bash scripts/accessibility-audit.sh"
+  },
+  "dependencies": {
+    "@astrojs/tailwind": "^5.1.0",
+    "@fontsource/inter": "^5.0.17",
+    "astro": "^4.15.3",
+    "tailwindcss": "^3.4.1",
+    "@fontsource/space-grotesk": "^5.0.17"
+  },
+  "devDependencies": {
+    "lighthouse": "^10.0.0",
+    "pa11y-ci": "^3.0.1",
+    "axe-core": "^4.7.2"
+  }
+}
