@@ -2,17 +2,12 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ChatWidget from '../components/ChatWidget.astro';
-import ProductSchema from '../components/ProductSchema.astro';
 
 interface Props {
   title: string;
   description?: string;
   image?: string;
   canonicalURL?: string;
-  product?: {
-    name: string;
-    description: string;
-  };
 }
 
 const {
@@ -20,7 +15,6 @@ const {
   description = "Save Earn Share - Your ultimate resource for saving money through digital coupons, rewards programs, and smart shopping strategies.",
   image = "/images/og-image.jpg",
   canonicalURL = Astro.url.href,
-  product,
 } = Astro.props;
 
 const schema = {
@@ -79,7 +73,6 @@ const schema = {
     
     <!-- Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-    {product && <ProductSchema product={product} />}
     
     <!-- Mobile Theme Color -->
     <meta name="theme-color" content="#4F46E5" />

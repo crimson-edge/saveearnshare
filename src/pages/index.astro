@@ -7,23 +7,75 @@ import BlogPost from '../components/BlogPost.astro';
 import Testimonials from '../components/Testimonials.astro';
 import FAQ from '../components/FAQ.astro';
 import Newsletter from '../components/Newsletter.astro';
-import WebsiteSchema from '../components/WebsiteSchema.astro';
 
 const siteUrl = new URL(Astro.url.pathname, Astro.site).toString();
-
-const productData = {
-  name: "Save Earn Share Platform",
-  description: "Comprehensive platform for digital couponing, rewards programs, and smart shopping strategies to help you save money on everyday purchases.",
-  image: new URL('/images/coupons/digital-couponing-hero.webp', Astro.site).toString()
-};
+const imageUrl = new URL('/images/coupons/digital-couponing-hero.webp', Astro.site).toString();
 ---
 
 <Layout 
   title="Save Earn Share - Digital Couponing & Smart Shopping Strategies"
   description="Your ultimate resource for saving money through digital coupons, rewards programs, and smart shopping strategies."
-  product={productData}
 >
-  <WebsiteSchema url={siteUrl} />
+  <!-- Website Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Save Earn Share",
+    "url": siteUrl,
+    "description": "Save Earn Share - Your ultimate resource for saving money through digital coupons, rewards programs, and smart shopping strategies.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": `${siteUrl}search?q={search_term_string}`
+      },
+      "query-input": "required name=search_term_string"
+    }
+  })} />
+
+  <!-- Product Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Save Earn Share Platform",
+    "description": "Comprehensive platform for digital couponing, rewards programs, and smart shopping strategies to help you save money on everyday purchases.",
+    "url": siteUrl,
+    "image": imageUrl,
+    "brand": {
+      "@type": "Brand",
+      "name": "SaveEarnShare"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "url": siteUrl
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "bestRating": "5",
+      "worstRating": "1",
+      "ratingCount": "150",
+      "reviewCount": "150"
+    },
+    "review": {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Sarah Johnson"
+      },
+      "reviewBody": "This digital couponing platform helped me save over $200 on my monthly grocery bills. The strategies are easy to follow and very effective."
+    }
+  })} />
+
   <div class="bg-gradient-to-b from-white to-background">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
       <div class="text-center">
