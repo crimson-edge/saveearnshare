@@ -7,9 +7,23 @@ import BlogPost from '../components/BlogPost.astro';
 import Testimonials from '../components/Testimonials.astro';
 import FAQ from '../components/FAQ.astro';
 import Newsletter from '../components/Newsletter.astro';
+import WebsiteSchema from '../components/WebsiteSchema.astro';
+
+const siteUrl = new URL(Astro.url.pathname, Astro.site).toString();
+
+const productData = {
+  name: "Save Earn Share Platform",
+  description: "Comprehensive platform for digital couponing, rewards programs, and smart shopping strategies to help you save money on everyday purchases.",
+  image: new URL('/images/coupons/digital-couponing-hero.webp', Astro.site).toString()
+};
 ---
 
-<Layout title="Home">
+<Layout 
+  title="Save Earn Share - Digital Couponing & Smart Shopping Strategies"
+  description="Your ultimate resource for saving money through digital coupons, rewards programs, and smart shopping strategies."
+  product={productData}
+>
+  <WebsiteSchema url={siteUrl} />
   <div class="bg-gradient-to-b from-white to-background">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
       <div class="text-center">
