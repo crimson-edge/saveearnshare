@@ -17,19 +17,6 @@ const {
   canonicalURL = Astro.url.href,
 } = Astro.props;
 
-const schema = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Save Earn Share",
-  "url": "https://saveearnshare.com",
-  "description": description,
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://saveearnshare.com/search?q={search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
-};
-
 ---
 
 <!DOCTYPE html>
@@ -70,9 +57,6 @@ const schema = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     
     <!-- Mobile Theme Color -->
     <meta name="theme-color" content="#4F46E5" />

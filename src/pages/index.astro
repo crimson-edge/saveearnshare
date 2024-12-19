@@ -20,13 +20,17 @@ const imageUrl = new URL('/images/coupons/digital-couponing-hero.webp', Astro.si
     {
       "@context": "https://schema.org",
       "@type": "Product",
-      "name": "Save Earn Share Platform",
-      "description": "Extreme couponing and shopping rewards strategies platform",
+      "name": "Digital Couponing Guide",
+      "description": "Comprehensive guide to digital couponing and smart shopping strategies",
+      "brand": {
+        "@type": "Brand",
+        "name": "SaveEarnShare"
+      },
       "offers": {
         "@type": "Offer",
+        "availability": "https://schema.org/InStock",
         "price": "0.00",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock"
+        "priceCurrency": "USD"
       },
       "aggregateRating": {
         "@type": "AggregateRating",
@@ -36,20 +40,20 @@ const imageUrl = new URL('/images/coupons/digital-couponing-hero.webp', Astro.si
         "ratingCount": "150",
         "reviewCount": "150"
       },
-      "review": {
+      "review": [{
         "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Sarah Johnson"
+        },
         "reviewRating": {
           "@type": "Rating",
           "ratingValue": "5",
           "bestRating": "5",
           "worstRating": "1"
         },
-        "author": {
-          "@type": "Person",
-          "name": "Sarah Johnson"
-        },
-        "reviewBody": "This digital couponing platform helped me save over $200 on my monthly grocery bills."
-      }
+        "reviewBody": "This digital couponing guide helped me save over $200 on my monthly grocery bills."
+      }]
     }
   </script>
 
