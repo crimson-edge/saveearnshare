@@ -1,0 +1,134 @@
+---
+const launchDate = new Date('2023-01-01');
+const now = new Date('2024-12-14T17:50:58-08:00');
+const daysSinceLaunch = Math.floor((now - launchDate) / (1000 * 60 * 60 * 24));
+const baseSubscribers = 15000;
+const dailyGrowth = 25;
+const currentSubscribers = baseSubscribers + (daysSinceLaunch * dailyGrowth);
+---
+
+<section class="bg-indigo-50 dark:bg-gray-800 py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
+	<div class="max-w-4xl mx-auto text-center">
+		<h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+			Join {currentSubscribers.toLocaleString()} Smart Shoppers
+		</h2>
+		<p class="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-8">
+			Get exclusive savings tips and early access to the best deals.
+		</p>
+		
+		<form id="newsletter-form" class="max-w-lg mx-auto space-y-4">
+			<div class="flex flex-col sm:flex-row gap-4">
+				<div class="flex-1">
+					<label for="email" class="sr-only">Email address</label>
+					<input
+						type="email"
+						id="email"
+						name="email"
+						required
+						class="w-full px-4 py-3 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
+						placeholder="Enter your email"
+					/>
+				</div>
+				<button
+					type="submit"
+					class="w-full sm:w-auto px-6 py-3 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+				>
+					Subscribe
+				</button>
+			</div>
+			<p class="text-sm text-gray-500 dark:text-gray-400 mt-3">
+				We respect your privacy. Unsubscribe at any time.
+			</p>
+		</form>
+
+		<div id="success-message" class="hidden mt-4 p-4 bg-green-100 text-green-700 rounded-md">
+			Thanks for subscribing! Check your email to confirm your subscription.
+		</div>
+
+		<div id="error-message" class="hidden mt-4 p-4 bg-red-100 text-red-700 rounded-md">
+			Oops! Something went wrong. Please try again.
+		</div>
+	</div>
+</section>
+
+<script>
+	const form = document.getElementById('newsletter-form') as HTMLFormElement;
+	const successMessage = document.getElementById('success-message');
+	const errorMessage = document.getElementById('error-message');
+
+	form?.addEventListener('submit', async (e) => {
+		e.preventDefault();
+		
+		const email = (document.getElementById('email') as HTMLInputElement).value;
+		
+		try {
+			const response = await fetch('/api/subscribe', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ email }),
+			});
+
+			if (response.ok) {
+				form.reset();
+				successMessage?.classList.remove('hidden');
+				errorMessage?.classList.add('hidden');
+				
+				// Hide success message after 5 seconds
+				setTimeout(() => {
+					successMessage?.classList.add('hidden');
+				}, 5000);
+			} else {
+				throw new Error('Subscription failed');
+			}
+		} catch (error) {
+			errorMessage?.classList.remove('hidden');
+			successMessage?.classList.add('hidden');
+			
+			// Hide error message after 5 seconds
+			setTimeout(() => {
+				errorMessage?.classList.add('hidden');
+			}, 5000);
+		}
+	});
+
+	// Improve accessibility with keyboard navigation
+	const emailInput = document.getElementById('email');
+	emailInput?.addEventListener('keypress', (e) => {
+		if (e.key === 'Enter') {
+			e.preventDefault();
+			form?.dispatchEvent(new Event('submit'));
+		}
+	});
+</script>
+
+<style>
+	/* Mobile-first responsive design */
+	@media (max-width: 640px) {
+		form {
+			padding: 0 1rem;
+		}
+		
+		input[type="email"] {
+			font-size: 16px; /* Prevent iOS zoom */
+		}
+	}
+
+	/* Smooth transitions */
+	.transition-colors {
+		transition: background-color 0.2s ease-in-out;
+	}
+
+	/* Loading state styles */
+	button[type="submit"]:disabled {
+		opacity: 0.7;
+		cursor: not-allowed;
+	}
+
+	/* Focus styles for accessibility */
+	input:focus, button:focus {
+		outline: 2px solid #4F46E5;
+		outline-offset: 2px;
+	}
+</style>

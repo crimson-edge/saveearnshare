@@ -1,0 +1,85 @@
+---
+const faqs = [
+  {
+    question: "What is extreme couponing?",
+    answer: "Extreme couponing is a strategic shopping approach that combines multiple coupons, store deals, and rewards programs to maximize savings. It involves careful planning, understanding store policies, and timing purchases to get the best possible discounts."
+  },
+  {
+    question: "How do I start with extreme couponing?",
+    answer: "Start by learning store policies, collecting coupons from various sources (newspapers, apps, store flyers), and understanding how to stack coupons. Our beginner's guide provides step-by-step instructions and weekly updates on the best deals."
+  },
+  {
+    question: "Where can I find the best coupons?",
+    answer: "You can find coupons in Sunday newspapers, store apps, manufacturer websites, coupon databases, and digital coupon platforms. We maintain an updated database of current coupons and provide alerts for high-value offers."
+  },
+  {
+    question: "What is coupon stacking?",
+    answer: "Coupon stacking is using multiple discounts on a single item. This typically involves combining a manufacturer's coupon with a store coupon, and potentially store sales or cashback offers. Each store has different stacking policies which we detail in our guides."
+  },
+  {
+    question: "How do store loyalty programs work?",
+    answer: "Store loyalty programs reward shoppers with points, cash back, or special discounts for their purchases. Each program has unique features, bonus point events, and redemption options. We provide guides for maximizing rewards at major retailers."
+  },
+  {
+    question: "Is digital couponing different from paper couponing?",
+    answer: "Yes, digital couponing uses smartphone apps and store loyalty cards instead of paper coupons. While the basic principles are similar, digital coupons often have different terms and may be more convenient. Many stores now allow combining digital and paper coupons."
+  },
+  {
+    question: "How much time does extreme couponing take?",
+    answer: "The time investment varies based on your goals. Beginners might spend 2-3 hours weekly planning shopping trips, while experienced couponers often spend 5-10 hours organizing deals. Our tools and guides help streamline the process."
+  },
+  {
+    question: "What are the best apps for saving money?",
+    answer: "Popular savings apps include Ibotta, Rakuten, Fetch Rewards, and store-specific apps. We review and rate savings apps, providing tutorials on how to maximize earnings from each platform."
+  },
+  {
+    question: "How do I organize my coupons?",
+    answer: "Organization methods include binder systems, digital tracking apps, or envelope methods. The key is finding a system that helps you track expiration dates and quickly find coupons. We provide templates and organization guides."
+  },
+  {
+    question: "Can I combine coupons with clearance items?",
+    answer: "Often yes! Many stores allow coupons on clearance items, potentially leading to massive savings. Store policies vary, and we maintain an updated database of store coupon policies and restrictions."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<section class="py-16 bg-white">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center">
+      <h2 class="text-3xl font-display font-bold text-gray-900 sm:text-4xl">
+        Frequently Asked Questions
+      </h2>
+      <p class="mt-4 text-lg text-gray-600">
+        Everything you need to know about extreme couponing and savings strategies
+      </p>
+    </div>
+
+    <div class="mt-12 space-y-6">
+      {faqs.map((faq, index) => (
+        <div class="bg-gray-50 rounded-lg p-6 transition-all duration-200 hover:shadow-md">
+          <h3 class="text-lg font-medium text-gray-900">
+            {faq.question}
+          </h3>
+          <p class="mt-2 text-gray-600">
+            {faq.answer}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />

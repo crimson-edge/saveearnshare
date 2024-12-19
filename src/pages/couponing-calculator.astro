@@ -1,0 +1,218 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+---
+
+<Layout title="Couponing Calculator">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h1 class="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-6 text-center">
+      Couponing Calculator
+    </h1>
+    <p class="text-lg text-gray-600 mb-8 text-center">
+      Calculate your total savings by combining multiple coupons, deals, and rewards.
+    </p>
+
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Shopping List</h2>
+        <form id="itemForm" class="space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label for="itemName" class="block text-sm font-medium text-gray-700">
+                Item Name
+              </label>
+              <input
+                type="text"
+                id="itemName"
+                name="itemName"
+                required
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+              />
+            </div>
+            <div>
+              <label for="itemPrice" class="block text-sm font-medium text-gray-700">
+                Regular Price ($)
+              </label>
+              <input
+                type="number"
+                id="itemPrice"
+                name="itemPrice"
+                min="0"
+                step="0.01"
+                required
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+              />
+            </div>
+            <div>
+              <label for="quantity" class="block text-sm font-medium text-gray-700">
+                Quantity
+              </label>
+              <input
+                type="number"
+                id="quantity"
+                name="quantity"
+                min="1"
+                value="1"
+                required
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="couponValue" class="block text-sm font-medium text-gray-700">
+                Coupon Value ($)
+              </label>
+              <input
+                type="number"
+                id="couponValue"
+                name="couponValue"
+                min="0"
+                step="0.01"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+              />
+            </div>
+            <div>
+              <label for="saleDiscount" class="block text-sm font-medium text-gray-700">
+                Sale Discount (%)
+              </label>
+              <input
+                type="number"
+                id="saleDiscount"
+                name="saleDiscount"
+                min="0"
+                max="100"
+                step="0.1"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+              />
+            </div>
+          </div>
+
+          <div class="flex justify-end">
+            <button
+              type="submit"
+              class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+            >
+              Add Item
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Shopping List Table -->
+      <div class="mt-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Your Shopping List</h2>
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Item</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Regular Price</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Savings</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Final Price</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="shoppingList" class="bg-white divide-y divide-gray-200">
+              <!-- Items will be added here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Total Summary -->
+      <div id="totalSummary" class="mt-8 p-4 bg-gray-50 rounded-md">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="text-sm font-medium text-gray-500">Total Regular Price:</div>
+          <div class="text-sm font-medium text-gray-900" id="totalRegularPrice">$0.00</div>
+          
+          <div class="text-sm font-medium text-gray-500">Total Savings:</div>
+          <div class="text-sm font-medium text-green-600" id="totalSavings">$0.00</div>
+          
+          <div class="text-sm font-medium text-gray-500">Final Total:</div>
+          <div class="text-sm font-medium text-primary" id="finalTotal">$0.00</div>
+          
+          <div class="text-sm font-medium text-gray-500">Average Savings:</div>
+          <div class="text-sm font-medium text-green-600" id="averageSavings">0%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  let shoppingItems = [];
+
+  const itemForm = document.getElementById('itemForm');
+  const shoppingList = document.getElementById('shoppingList');
+
+  function updateTotals() {
+    const totalRegularPrice = shoppingItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const totalSavings = shoppingItems.reduce((sum, item) => {
+      const itemTotal = item.price * item.quantity;
+      const saleAmount = (itemTotal * item.saleDiscount) / 100;
+      const couponAmount = item.couponValue * item.quantity;
+      return sum + saleAmount + couponAmount;
+    }, 0);
+    const finalTotal = totalRegularPrice - totalSavings;
+    const averageSavings = totalRegularPrice > 0 ? (totalSavings / totalRegularPrice) * 100 : 0;
+
+    document.getElementById('totalRegularPrice').textContent = `$${totalRegularPrice.toFixed(2)}`;
+    document.getElementById('totalSavings').textContent = `$${totalSavings.toFixed(2)}`;
+    document.getElementById('finalTotal').textContent = `$${finalTotal.toFixed(2)}`;
+    document.getElementById('averageSavings').textContent = `${averageSavings.toFixed(1)}%`;
+  }
+
+  function removeItem(index) {
+    shoppingItems.splice(index, 1);
+    renderShoppingList();
+    updateTotals();
+  }
+
+  function renderShoppingList() {
+    shoppingList.innerHTML = shoppingItems.map((item, index) => {
+      const regularPrice = item.price * item.quantity;
+      const saleAmount = (regularPrice * item.saleDiscount) / 100;
+      const couponAmount = item.couponValue * item.quantity;
+      const totalSavings = saleAmount + couponAmount;
+      const finalPrice = regularPrice - totalSavings;
+
+      return `
+        <tr>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.name}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.quantity}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$${regularPrice.toFixed(2)}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">$${totalSavings.toFixed(2)}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-primary">$${finalPrice.toFixed(2)}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            <button
+              onclick="removeItem(${index})"
+              class="text-red-600 hover:text-red-900"
+            >
+              Remove
+            </button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  itemForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const newItem = {
+      name: document.getElementById('itemName').value,
+      price: parseFloat(document.getElementById('itemPrice').value),
+      quantity: parseInt(document.getElementById('quantity').value),
+      couponValue: parseFloat(document.getElementById('couponValue').value) || 0,
+      saleDiscount: parseFloat(document.getElementById('saleDiscount').value) || 0
+    };
+
+    shoppingItems.push(newItem);
+    itemForm.reset();
+    renderShoppingList();
+    updateTotals();
+  });
+</script>

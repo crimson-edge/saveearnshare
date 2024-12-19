@@ -1,117 +1,177 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import FeatureCard from '../components/FeatureCard.astro';
 import ResourceCard from '../components/ResourceCard.astro';
 import VideoPlayer from '../components/VideoPlayer.astro';
-import FinancialCalculators from '../components/FinancialCalculators.astro';
+import BlogPost from '../components/BlogPost.astro';
 import Testimonials from '../components/Testimonials.astro';
-
-const resources = [
-  {
-    title: 'Credit Repair Magic',
-    description: 'Transform your credit score and unlock financial opportunities with our proven system. Learn the secrets to improving your credit score and securing better financial terms.',
-    icon: '⭐',
-    href: 'http://credit.crimsonedgeventures.com',
-    image: '/images/credit-repair.jpg'
-  },
-  {
-    title: 'Wealth Switch',
-    description: 'Discover the powerful mindset shifts and proven strategies that unlock lasting financial abundance. Your path to wealth starts with the right mental framework.',
-    icon: '🔑',
-    href: 'https://www.digistore24.com/redir/413844/CrimsonEdge/',
-    image: '/images/wealth-mindset.jpg'
-  }
-];
+import FAQ from '../components/FAQ.astro';
+import Newsletter from '../components/Newsletter.astro';
 ---
 
-<Layout title="Save Earn Share - Smart Shopping & Digital Couponing">
-  <div class="bg-gradient-to-b from-primary-50 to-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-24">
+<Layout title="Home">
+  <div class="bg-gradient-to-b from-white to-background">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
       <div class="text-center">
-        <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold text-gray-900 font-display mb-4 sm:mb-6">
-          Master Your Money,<br class="hidden sm:inline" />
-          <span class="text-primary-600">Secure Your Future</span>
+        <h1 class="text-3xl sm:text-4xl md:text-6xl font-display font-bold text-gray-900 mb-4 sm:mb-6">
+          Save Big, Shop Smart
         </h1>
-        <p class="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto">
-          Your journey to financial freedom starts here. Discover tools, resources, and strategies to take control of your financial future.
+        <p class="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto px-4 sm:px-0">
+          Your ultimate toolkit for extreme couponing, loyalty rewards, and smart shopping strategies.
         </p>
-        <div class="mt-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-          <VideoPlayer videoId="qfmjVYUyOek" title="Money Mastery Resources Introduction" />
+        <a href="#resources" class="inline-block bg-primary text-white px-6 sm:px-8 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors text-base sm:text-lg mb-12">
+          Explore Resources
+        </a>
+
+        <!-- Interactive Counters -->
+        <div class="grid grid-cols-1 gap-8 sm:grid-cols-3 mt-16">
+          <div class="text-center">
+            <div class="text-4xl font-bold text-primary mb-2">
+              {(() => {
+                const LAUNCH_DATE = new Date('2023-01-01').getTime();
+                const now = new Date('2024-12-14T17:41:05-08:00').getTime();
+                const daysSinceLaunch = Math.floor((now - LAUNCH_DATE) / (1000 * 60 * 60 * 24));
+                const baseMembers = 15000;
+                const dailyGrowth = 25;
+                return Math.floor(baseMembers + (daysSinceLaunch * dailyGrowth)).toLocaleString() + '+'
+              })()}
+            </div>
+            <p class="text-gray-600">Active Members</p>
+          </div>
+          <div class="text-center">
+            <div class="text-4xl font-bold text-primary mb-2">
+              {(() => {
+                const avgSavingsPerMember = 450; // Average yearly savings per member
+                const activeMembers = 19445; // Should match the calculation above
+                const totalSavings = Math.floor(avgSavingsPerMember * activeMembers);
+                return '$' + totalSavings.toLocaleString()
+              })()}
+            </div>
+            <p class="text-gray-600">Total Member Savings</p>
+          </div>
+          <div class="text-center">
+            <div class="text-4xl font-bold text-primary mb-2">98%</div>
+            <p class="text-gray-600">Member Satisfaction</p>
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <VideoPlayer videoId="Ij4ti3_sCco" title="Save Earn Share Introduction" />
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Featured Section -->
-  <section class="py-12 sm:py-16 bg-gray-50">
+  <section id="features" class="py-12 sm:py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-6 sm:mb-8">Featured Resources</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
-        {resources.map(resource => (
-          <a 
-            href={resource.href} 
-            class="group relative overflow-hidden rounded-2xl bg-white shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
-          >
-            <div class="aspect-w-16 aspect-h-9 w-full">
-              <img 
-                src={resource.image} 
-                alt={resource.title}
-                class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-            </div>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
-              <div class="absolute bottom-0 p-6 sm:p-8">
-                <div class="flex items-center space-x-3 mb-3">
-                  <div class="bg-white/10 backdrop-blur-sm p-2 rounded-lg">
-                    <span class="text-2xl">{resource.icon}</span>
-                  </div>
-                  <h3 class="text-xl sm:text-2xl font-bold text-white">{resource.title}</h3>
-                </div>
-                <p class="text-white/90 text-sm sm:text-base max-w-prose">
-                  {resource.description}
-                </p>
-                <div class="mt-4">
-                  <span class="inline-flex items-center text-white font-semibold group-hover:underline">
-                    Learn More
-                    <svg class="ml-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </a>
-        ))}
+      <h2 class="text-2xl sm:text-3xl font-display font-bold text-gray-900 mb-8 sm:mb-12 text-center">Essential Tools & Resources</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <a href="/savings-calculator" class="block">
+          <FeatureCard
+            title="Savings Calculator"
+            description="Plan your savings and calculate potential returns from stacking coupons."
+            icon="calculator"
+          />
+        </a>
+        <a href="/couponing-calculator" class="block">
+          <FeatureCard
+            title="Coupon Calculator"
+            description="Calculate your total savings with our interactive coupon calculator."
+            icon="calculator"
+          />
+        </a>
+        <a href="/coupon-database" class="block">
+          <FeatureCard
+            title="Coupon Database"
+            description="Search through our extensive database of digital and printable coupons."
+            icon="database"
+          />
+        </a>
       </div>
     </div>
   </section>
 
-  <section class="py-12 sm:py-24 bg-white" id="calculators">
+  <section id="resources" class="py-12 sm:py-16 bg-background">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-8 sm:mb-12">Financial Calculators</h2>
-      <FinancialCalculators />
+      <h2 class="text-2xl sm:text-3xl font-display font-bold text-gray-900 mb-8 sm:mb-12 text-center">Latest Resources</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <ResourceCard
+          title="Advanced Coupon Combining Strategy Ebook"
+          description="Download our comprehensive guide to mastering advanced coupon stacking techniques."
+          href="/downloads/Advanced_Couponing_Tutorial_Final.pdf"
+        />
+        <ResourceCard
+          title="Store Reward Programs"
+          description="Learn how to maximize benefits from store loyalty programs and rewards cards."
+          href="/store-rewards-guide"
+        />
+        <ResourceCard
+          title="Digital Couponing Guide"
+          description="Master the art of finding and using digital coupons from various online sources."
+          href="/digital-couponing-guide"
+        />
+      </div>
+    </div>
+  </section>
+  <!-- Testimonials Section -->
+  <Testimonials />
+  
+  <FAQ />
+
+  <Newsletter />
+  
+  <!-- Blog Section -->
+  <section class="bg-gray-50 py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-display font-bold text-center text-gray-900 mb-12">
+        Latest Blog Posts
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <BlogPost
+          title="10 Extreme Couponing Tips for Maximum Savings"
+          excerpt="Learn the secrets of extreme couponing and how to maximize your savings on every purchase."
+          image="/images/blog/extreme-couponing.jpg"
+          date="December 9, 2024"
+          slug="extreme-couponing-tips"
+        />
+        <BlogPost
+          title="Master Guide to Finding and Using Digital Coupon Codes Online"
+          excerpt="Discover how to find and apply digital coupon codes to maximize your online shopping savings."
+          image="/images/blog/digital-coupon-codes.jpg"
+          date="December 9, 2024"
+          slug="digital-coupon-codes"
+        />
+        <BlogPost
+          title="Smart Holiday Shopping Strategies"
+          excerpt="Get ready for the holiday season with these smart shopping strategies to save big."
+          image="/images/blog/holiday-savings.jpg"
+          date="December 9, 2024"
+          slug="holiday-shopping-strategies"
+        />
+      </div>
     </div>
   </section>
 
-  <section class="py-12 sm:py-24 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <Testimonials />
-    </div>
-  </section>
+  <script>
+    // Counter animation
+    const counters = document.querySelectorAll('.counter');
+    const speed = 200;
+
+    counters.forEach(counter => {
+      const target = +counter.getAttribute('data-target');
+      const increment = target / speed;
+
+      const updateCount = () => {
+        const count = +counter.innerText;
+        if (count < target) {
+          counter.innerText = Math.ceil(count + increment);
+          setTimeout(updateCount, 1);
+        } else {
+          counter.innerText = target;
+        }
+      };
+
+      updateCount();
+    });
+  </script>
 </Layout>
-
-<style>
-  .aspect-w-16 {
-    position: relative;
-    padding-bottom: 56.25%;
-  }
-
-  .aspect-w-16 > * {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-</style>

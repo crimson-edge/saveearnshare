@@ -1,0 +1,45 @@
+---
+interface Props {
+  title: string;
+  excerpt: string;
+  image: string;
+  date: string;
+  slug: string;
+}
+
+const { title, excerpt, image, date, slug } = Astro.props;
+---
+
+<article class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+  <a href={`/blog/${slug}`} class="block">
+    <img 
+      src={image} 
+      alt={title}
+      class="w-full h-48 object-cover hover:opacity-90 transition-opacity"
+      loading="lazy"
+      width="800"
+      height="400"
+    />
+  </a>
+  <div class="p-6">
+    <p class="text-sm text-gray-500 mb-2">{date}</p>
+    <a 
+      href={`/blog/${slug}`}
+      class="block group"
+    >
+      <h3 class="text-xl font-semibold text-gray-900 mb-2 group-hover:text-primary transition-colors">
+        {title}
+      </h3>
+    </a>
+    <p class="text-gray-600 mb-4">{excerpt}</p>
+    <a 
+      href={`/blog/${slug}`}
+      class="inline-flex items-center text-primary font-medium hover:text-primary/80 transition-colors"
+    >
+      Read More 
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+      </svg>
+    </a>
+  </div>
+</article>

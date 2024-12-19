@@ -1,0 +1,142 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const couponSources = [
+  {
+    name: "Coupons.com",
+    url: "https://www.coupons.com",
+    description: "Digital and printable manufacturer coupons",
+    categories: ["Grocery", "Household", "Personal Care"],
+    icon: "store"
+  },
+  {
+    name: "RetailMeNot",
+    url: "https://www.retailmenot.com",
+    description: "Online and in-store coupons, promo codes",
+    categories: ["Retail", "Online Shopping", "Restaurant"],
+    icon: "tag"
+  },
+  {
+    name: "SmartSource",
+    url: "https://www.smartsource.com",
+    description: "Printable coupons and digital savings",
+    categories: ["Grocery", "Drugstore", "Household"],
+    icon: "coupon"
+  }
+];
+
+const categories = [
+  "Grocery",
+  "Household",
+  "Personal Care",
+  "Retail",
+  "Restaurant",
+  "Online Shopping",
+  "Electronics",
+  "Travel"
+];
+---
+
+<Layout title="Coupon Database">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h1 class="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-6 text-center">
+      Coupon Database
+    </h1>
+    <p class="text-lg text-gray-600 mb-8 text-center max-w-3xl mx-auto">
+      Find the best current coupons and deals from trusted sources. We've curated the top offers to help you save more on your purchases.
+    </p>
+
+    <!-- Category Filter -->
+    <div class="mb-12">
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">Browse by Category</h2>
+      <div class="flex flex-wrap gap-2">
+        {categories.map((category) => (
+          <button
+            class="px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-primary hover:text-white transition-colors"
+            data-category={category}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Coupon Sources -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {couponSources.map((source) => (
+        <a
+          href={source.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block p-6 bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
+        >
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">{source.name}</h3>
+          <p class="text-gray-600 mb-4">{source.description}</p>
+          <div class="flex flex-wrap gap-2">
+            {source.categories.map((category) => (
+              <span class="text-sm px-2 py-1 bg-gray-100 rounded-full text-gray-600">
+                {category}
+              </span>
+            ))}
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <!-- Tips Section -->
+    <div class="mt-12 bg-gray-50 rounded-lg p-6">
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">Pro Tips for Using Coupons</h2>
+      <ul class="space-y-3 text-gray-600">
+        <li class="flex items-start">
+          <svg class="w-5 h-5 text-primary mt-1 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          Check expiration dates and store policies before using coupons
+        </li>
+        <li class="flex items-start">
+          <svg class="w-5 h-5 text-primary mt-1 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          Stack manufacturer and store coupons when possible
+        </li>
+        <li class="flex items-start">
+          <svg class="w-5 h-5 text-primary mt-1 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          Sign up for store loyalty programs to maximize savings
+        </li>
+      </ul>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="mt-8 text-sm text-gray-500 text-center">
+      <p>External coupon sources open in a new tab. We are not responsible for the content of external websites.</p>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // Add interactivity for category filtering
+  const categoryButtons = document.querySelectorAll('[data-category]');
+  const couponCards = document.querySelectorAll('[data-categories]');
+
+  categoryButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const category = button.dataset.category;
+      
+      // Toggle active state
+      categoryButtons.forEach(btn => btn.classList.remove('bg-primary', 'text-white'));
+      button.classList.add('bg-primary', 'text-white');
+      
+      // Filter cards
+      couponCards.forEach(card => {
+        const categories = card.dataset.categories.split(',');
+        if (categories.includes(category)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

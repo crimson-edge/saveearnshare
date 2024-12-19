@@ -1,0 +1,176 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+---
+
+<Layout title="Savings Calculator">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h1 class="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-6 text-center">
+      Savings Calculator
+    </h1>
+    <p class="text-lg text-gray-600 mb-8 text-center">
+      Plan your savings and calculate potential returns from stacking coupons and rewards.
+    </p>
+
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <form id="savingsForm" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Initial Purchase Amount -->
+          <div>
+            <label for="purchaseAmount" class="block text-sm font-medium text-gray-700">
+              Original Purchase Amount ($)
+            </label>
+            <input
+              type="number"
+              id="purchaseAmount"
+              name="purchaseAmount"
+              min="0"
+              step="0.01"
+              required
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+            />
+          </div>
+
+          <!-- Store Discount -->
+          <div>
+            <label for="storeDiscount" class="block text-sm font-medium text-gray-700">
+              Store Discount (%)
+            </label>
+            <input
+              type="number"
+              id="storeDiscount"
+              name="storeDiscount"
+              min="0"
+              max="100"
+              step="0.1"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+            />
+          </div>
+
+          <!-- Manufacturer Coupons -->
+          <div>
+            <label for="manufacturerCoupons" class="block text-sm font-medium text-gray-700">
+              Manufacturer Coupons Value ($)
+            </label>
+            <input
+              type="number"
+              id="manufacturerCoupons"
+              name="manufacturerCoupons"
+              min="0"
+              step="0.01"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+            />
+          </div>
+
+          <!-- Store Coupons -->
+          <div>
+            <label for="storeCoupons" class="block text-sm font-medium text-gray-700">
+              Store Coupons Value ($)
+            </label>
+            <input
+              type="number"
+              id="storeCoupons"
+              name="storeCoupons"
+              min="0"
+              step="0.01"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+            />
+          </div>
+
+          <!-- Cashback Amount -->
+          <div>
+            <label for="cashback" class="block text-sm font-medium text-gray-700">
+              Cashback Amount (%)
+            </label>
+            <input
+              type="number"
+              id="cashback"
+              name="cashback"
+              min="0"
+              max="100"
+              step="0.1"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+            />
+          </div>
+
+          <!-- Reward Points Value -->
+          <div>
+            <label for="rewardPoints" class="block text-sm font-medium text-gray-700">
+              Reward Points Value ($)
+            </label>
+            <input
+              type="number"
+              id="rewardPoints"
+              name="rewardPoints"
+              min="0"
+              step="0.01"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+            />
+          </div>
+        </div>
+
+        <div class="flex justify-center">
+          <button
+            type="submit"
+            class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+          >
+            Calculate Savings
+          </button>
+        </div>
+      </form>
+
+      <!-- Results Section -->
+      <div id="results" class="mt-8 hidden">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Your Savings Summary</h2>
+        <div class="bg-gray-50 p-4 rounded-md space-y-3">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="text-sm text-gray-600">Original Price:</div>
+            <div class="text-sm font-medium text-gray-900" id="originalPrice">$0.00</div>
+            
+            <div class="text-sm text-gray-600">Total Savings:</div>
+            <div class="text-sm font-medium text-green-600" id="totalSavings">$0.00</div>
+            
+            <div class="text-sm text-gray-600">Final Price:</div>
+            <div class="text-sm font-medium text-primary" id="finalPrice">$0.00</div>
+            
+            <div class="text-sm text-gray-600">Savings Percentage:</div>
+            <div class="text-sm font-medium text-green-600" id="savingsPercentage">0%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById('savingsForm');
+  const results = document.getElementById('results');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Get form values
+    const purchaseAmount = parseFloat(document.getElementById('purchaseAmount').value) || 0;
+    const storeDiscount = parseFloat(document.getElementById('storeDiscount').value) || 0;
+    const manufacturerCoupons = parseFloat(document.getElementById('manufacturerCoupons').value) || 0;
+    const storeCoupons = parseFloat(document.getElementById('storeCoupons').value) || 0;
+    const cashback = parseFloat(document.getElementById('cashback').value) || 0;
+    const rewardPoints = parseFloat(document.getElementById('rewardPoints').value) || 0;
+
+    // Calculate savings
+    const storeDiscountAmount = (purchaseAmount * storeDiscount) / 100;
+    const cashbackAmount = ((purchaseAmount - storeDiscountAmount) * cashback) / 100;
+    const totalSavings = storeDiscountAmount + manufacturerCoupons + storeCoupons + cashbackAmount + rewardPoints;
+    const finalPrice = Math.max(0, purchaseAmount - totalSavings);
+    const savingsPercentage = (totalSavings / purchaseAmount) * 100;
+
+    // Update results
+    document.getElementById('originalPrice').textContent = `$${purchaseAmount.toFixed(2)}`;
+    document.getElementById('totalSavings').textContent = `$${totalSavings.toFixed(2)}`;
+    document.getElementById('finalPrice').textContent = `$${finalPrice.toFixed(2)}`;
+    document.getElementById('savingsPercentage').textContent = `${savingsPercentage.toFixed(1)}%`;
+
+    // Show results
+    results.classList.remove('hidden');
+  });
+</script>
