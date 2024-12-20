@@ -27,30 +27,6 @@ const testimonials = [
     imageCredit: "Photo by Zack Silver on Unsplash"
   }
 ];
-
-const testimonialSchema = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "itemListElement": testimonials.map((testimonial, index) => ({
-    "@type": "Review",
-    "position": index + 1,
-    "author": {
-      "@type": "Person",
-      "name": testimonial.name
-    },
-    "reviewRating": {
-      "@type": "Rating",
-      "ratingValue": "5",
-      "bestRating": "5"
-    },
-    "reviewBody": testimonial.quote,
-    "itemReviewed": {
-      "@type": "Product",
-      "name": "Save Earn Share Platform",
-      "description": "Extreme couponing and shopping rewards strategies platform"
-    }
-  }))
-};
 ---
 
 <section class="py-12 bg-gray-50 dark:bg-gray-900">
@@ -103,5 +79,3 @@ const testimonialSchema = {
     </div>
   </div>
 </section>
-
-<script type="application/ld+json" set:html={JSON.stringify(testimonialSchema)} />
