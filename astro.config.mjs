@@ -18,7 +18,7 @@ export default defineConfig({
     }),
   ],
   site: 'https://saveearnshare.com',
-  output: 'static',
+  output: 'server',
   adapter: netlify(),
   build: {
     format: 'directory'
