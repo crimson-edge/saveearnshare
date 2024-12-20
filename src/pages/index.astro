@@ -8,8 +8,7 @@ import Testimonials from '../components/Testimonials.astro';
 import FAQ from '../components/FAQ.astro';
 import Newsletter from '../components/Newsletter.astro';
 
-const siteUrl = new URL(Astro.url.pathname, Astro.site).toString();
-const imageUrl = new URL('/images/coupons/digital-couponing-hero.webp', Astro.site).toString();
+const siteUrl = 'https://saveearnshare.com';
 ---
 
 <Layout 
@@ -22,6 +21,8 @@ const imageUrl = new URL('/images/coupons/digital-couponing-hero.webp', Astro.si
       "@type": "Product",
       "name": "Digital Couponing Guide",
       "description": "Comprehensive guide to digital couponing and smart shopping strategies",
+      "image": "https://saveearnshare.com/images/guide-cover.jpg",
+      "url": "https://saveearnshare.com",
       "brand": {
         "@type": "Brand",
         "name": "SaveEarnShare"
@@ -30,7 +31,8 @@ const imageUrl = new URL('/images/coupons/digital-couponing-hero.webp', Astro.si
         "@type": "Offer",
         "availability": "https://schema.org/InStock",
         "price": "0.00",
-        "priceCurrency": "USD"
+        "priceCurrency": "USD",
+        "url": "https://saveearnshare.com"
       },
       "aggregateRating": {
         "@type": "AggregateRating",
@@ -40,7 +42,7 @@ const imageUrl = new URL('/images/coupons/digital-couponing-hero.webp', Astro.si
         "ratingCount": "150",
         "reviewCount": "150"
       },
-      "review": [{
+      "review": {
         "@type": "Review",
         "author": {
           "@type": "Person",
@@ -53,7 +55,7 @@ const imageUrl = new URL('/images/coupons/digital-couponing-hero.webp', Astro.si
           "worstRating": "1"
         },
         "reviewBody": "This digital couponing guide helped me save over $200 on my monthly grocery bills."
-      }]
+      }
     }
   </script>
 

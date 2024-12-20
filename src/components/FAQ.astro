@@ -42,18 +42,6 @@ const faqs = [
   }
 ];
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
-    "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
-};
 ---
 
 <section class="py-16 bg-white">
@@ -81,5 +69,3 @@ const faqSchema = {
     </div>
   </div>
 </section>
-
-<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
