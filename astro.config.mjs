@@ -7,14 +7,18 @@ export default defineConfig({
   integrations: [
     tailwind(),
     sitemap({
-      filter: (page) => !page.includes('/admin/'),
+      filter: (page) => !page.includes('admin') && !page.includes('private') && !page.includes('api'),
       customPages: [
+        'https://saveearnshare.com/',
         'https://saveearnshare.com/blog',
         'https://saveearnshare.com/calculators',
         'https://saveearnshare.com/coupon-database',
         'https://saveearnshare.com/digital-couponing-guide',
         'https://saveearnshare.com/store-rewards-guide',
       ],
+      changefreq: 'weekly',
+      priority: 0.7,
+      lastmod: new Date().toISOString()
     }),
   ],
   site: 'https://saveearnshare.com',
