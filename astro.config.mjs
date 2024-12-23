@@ -4,6 +4,7 @@ import netlify from '@astrojs/netlify';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
+  site: 'https://saveearnshare.com',
   integrations: [
     tailwind(),
     sitemap({
@@ -17,21 +18,12 @@ export default defineConfig({
         }
         return true;
       },
-      customPages: [
-        'https://saveearnshare.com',
-        'https://saveearnshare.com/blog',
-        'https://saveearnshare.com/calculators',
-        'https://saveearnshare.com/get-started',
-        'https://saveearnshare.com/coupon-database',
-        'https://saveearnshare.com/digital-couponing-guide',
-        'https://saveearnshare.com/store-rewards-guide',
-      ],
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date().toISOString()
     }),
+    netlify()
   ],
-  site: 'https://saveearnshare.com',
   output: 'server',
   adapter: netlify(),
   build: {
