@@ -5,21 +5,34 @@
 [build.environment]
   NODE_VERSION = "18"
 
-# Force HTTPS
+[[redirects]]
+  from = "/*/"
+  to = "/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/calculators/*"
+  to = "/calculators/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/blog/*"
+  to = "/blog/:splat"
+  status = 200
+
 [[redirects]]
   from = "http://*"
   to = "https://:splat"
   status = 301
   force = true
 
-# Redirect www to non-www
 [[redirects]]
   from = "https://www.saveearnshare.com/*"
   to = "https://saveearnshare.com/:splat"
   status = 301
   force = true
 
-# Handle client-side routing
 [[redirects]]
   from = "/*"
   to = "/index.html"
@@ -44,13 +57,25 @@
     Content-Type = "application/xml"
     X-Content-Type-Options = "nosniff"
 
-# Security headers for all pages
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "upgrade-insecure-requests; default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:;"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-    X-Content-Type-Options = "nosniff"
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:;"
+
+[build.processing]
+  skip_processing = false
+[build.processing.css]
+  bundle = true
+  minify = true
+[build.processing.js]
+  bundle = true
+  minify = true
+[build.processing.html]
+  pretty_urls = true
+[build.processing.images]
+  compress = true

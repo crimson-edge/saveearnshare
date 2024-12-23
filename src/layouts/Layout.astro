@@ -14,8 +14,14 @@ const {
   title,
   description = "Save Earn Share - Your ultimate resource for saving money through digital coupons, rewards programs, and smart shopping strategies.",
   image = "/images/og-image.jpg",
-  canonicalURL = Astro.url.href,
+  canonicalURL,
 } = Astro.props;
+
+// Ensure canonical URL is always the clean path without trailing slash
+const currentPath = Astro.url.pathname;
+const cleanPath = currentPath.endsWith('/') ? currentPath.slice(0, -1) : currentPath;
+const defaultCanonical = new URL(cleanPath, Astro.site).toString();
+const finalCanonicalURL = canonicalURL || defaultCanonical;
 
 ---
 
@@ -32,21 +38,21 @@ const {
     <meta name="description" content={description} />
     
     <!-- Canonical URL -->
-    <link rel="canonical" href={canonicalURL} />
+    <link rel="canonical" href={finalCanonicalURL} />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:url" content={finalCanonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(image, Astro.url)} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:url" content={finalCanonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={new URL(image, Astro.url)} />
+    <meta property="twitter:image" content={new URL(image, Astro.site)} />
     
     <!-- Additional SEO Meta Tags -->
     <meta name="robots" content="index, follow" />

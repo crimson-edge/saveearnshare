@@ -1,0 +1,51 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Card from '../../components/Card.astro';
+
+const calculators = [
+  {
+    title: 'Budgeting Calculator',
+    body: 'Plan and track your monthly budget with our comprehensive budgeting tool.',
+    href: '/calculators/budgeting',
+  },
+  {
+    title: 'Credit Score Calculator',
+    body: 'Understand and estimate your credit score with our calculator.',
+    href: '/calculators/credit-score',
+  },
+  {
+    title: 'Debt Repayment Calculator',
+    body: 'Create a plan to become debt-free with our debt repayment calculator.',
+    href: '/calculators/debt-repayment',
+  },
+  {
+    title: 'Net Worth Calculator',
+    body: 'Calculate and track your net worth over time.',
+    href: '/calculators/net-worth',
+  },
+  {
+    title: 'Retirement Savings Calculator',
+    body: 'Plan for your retirement with our savings calculator.',
+    href: '/calculators/retirement-savings',
+  },
+];
+---
+
+<Layout title="Financial Calculators | SaveEarnShare">
+  <main class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-center mb-8">Financial Calculators</h1>
+    <p class="text-lg text-center mb-12">
+      Use our collection of financial calculators to help you make better financial decisions.
+    </p>
+    
+    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {calculators.map((calculator) => (
+        <Card
+          title={calculator.title}
+          body={calculator.body}
+          href={calculator.href}
+        />
+      ))}
+    </ul>
+  </main>
+</Layout>

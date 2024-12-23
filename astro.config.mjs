@@ -7,11 +7,21 @@ export default defineConfig({
   integrations: [
     tailwind(),
     sitemap({
-      filter: (page) => !page.includes('admin') && !page.includes('private') && !page.includes('api'),
+      filter: (page) => {
+        // Exclude admin, private, api pages and trailing slashes
+        if (page.includes('admin') || 
+            page.includes('private') || 
+            page.includes('api') ||
+            page.endsWith('/')) {
+          return false;
+        }
+        return true;
+      },
       customPages: [
-        'https://saveearnshare.com/',
+        'https://saveearnshare.com',
         'https://saveearnshare.com/blog',
         'https://saveearnshare.com/calculators',
+        'https://saveearnshare.com/get-started',
         'https://saveearnshare.com/coupon-database',
         'https://saveearnshare.com/digital-couponing-guide',
         'https://saveearnshare.com/store-rewards-guide',

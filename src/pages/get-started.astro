@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+
+const steps = [
+  {
+    title: 'Assess Your Financial Situation',
+    body: 'Use our calculators to understand your current financial position and plan your next steps.',
+    href: '/calculators',
+  },
+  {
+    title: 'Learn Money-Saving Strategies',
+    body: 'Explore our comprehensive guides on digital couponing and store rewards programs.',
+    href: '/digital-couponing-guide',
+  },
+  {
+    title: 'Start Saving Today',
+    body: 'Access our coupon database and use our savings calculator to maximize your savings.',
+    href: '/coupon-database',
+  },
+];
+---
+
+<Layout title="Get Started | SaveEarnShare">
+  <main class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-center mb-8">Get Started with SaveEarnShare</h1>
+    <p class="text-lg text-center mb-12">
+      Follow these simple steps to begin your journey towards financial success.
+    </p>
+
+    <ul class="max-w-3xl mx-auto space-y-6">
+      {steps.map((step) => (
+        <Card
+          title={step.title}
+          body={step.body}
+          href={step.href}
+        />
+      ))}
+    </ul>
+  </main>
+</Layout>
