@@ -5,24 +5,6 @@
 [build.environment]
   NODE_VERSION = "18"
 
-# Static files - serve directly
-[[redirects]]
-  from = "/sitemap.xml"
-  to = "/sitemap.xml"
-  status = 200
-
-[[redirects]]
-  from = "/robots.txt"
-  to = "/robots.txt"
-  status = 200
-
-# HTTP to HTTPS redirect
-[[redirects]]
-  from = "http://*"
-  to = "https://:splat"
-  status = 301
-  force = true
-
 # WWW to non-WWW redirect
 [[redirects]]
   from = "https://www.saveearnshare.com/*"
@@ -30,37 +12,12 @@
   status = 301
   force = true
 
-# Remove trailing slashes
+# HTTP to HTTPS redirect
 [[redirects]]
-  from = "/*/"
-  to = "/:splat"
+  from = "http://*"
+  to = "https://:splat"
   status = 301
   force = true
-
-# SPA fallback - must be last
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  force = false
-
-[[headers]]
-  for = "/sitemap-index.xml"
-  [headers.values]
-    Content-Type = "application/xml"
-    X-Content-Type-Options = "nosniff"
-
-[[headers]]
-  for = "/sitemap-*.xml"
-  [headers.values]
-    Content-Type = "application/xml"
-    X-Content-Type-Options = "nosniff"
-
-[[headers]]
-  for = "/*.xml"
-  [headers.values]
-    Content-Type = "application/xml"
-    X-Content-Type-Options = "nosniff"
 
 [[headers]]
   for = "/*"
@@ -70,17 +27,4 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:;"
-
-[build.processing]
-  skip_processing = false
-[build.processing.css]
-  bundle = true
-  minify = true
-[build.processing.js]
-  bundle = true
-  minify = true
-[build.processing.html]
-  pretty_urls = true
-[build.processing.images]
-  compress = true
+    Content-Security-Policy = "default-src 'self' 'unsafe-inline' 'unsafe-eval' *.saveearnshare.com; img-src 'self' data: https:; font-src 'self' data: https:; style-src 'self' 'unsafe-inline' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' https:; frame-ancestors 'none';"

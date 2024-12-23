@@ -4,15 +4,16 @@ import netlify from '@astrojs/netlify';
 
 export default defineConfig({
   site: 'https://saveearnshare.com',
+  trailingSlash: 'never',
+  build: {
+    format: 'directory'
+  },
   integrations: [
     tailwind(),
     netlify()
   ],
   output: 'server',
   adapter: netlify(),
-  build: {
-    format: 'directory'
-  },
   image: {
     service: {
       entrypoint: 'astro/assets/services/sharp'
