@@ -5,6 +5,7 @@
 [build.environment]
   NODE_VERSION = "18"
 
+# Static files - serve directly
 [[redirects]]
   from = "/sitemap.xml"
   to = "/sitemap.xml"
@@ -15,39 +16,33 @@
   to = "/robots.txt"
   status = 200
 
-[[redirects]]
-  from = "/*/"
-  to = "/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/calculators/*"
-  to = "/calculators/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/blog/*"
-  to = "/blog/:splat"
-  status = 200
-
+# HTTP to HTTPS redirect
 [[redirects]]
   from = "http://*"
   to = "https://:splat"
   status = 301
   force = true
 
+# WWW to non-WWW redirect
 [[redirects]]
   from = "https://www.saveearnshare.com/*"
   to = "https://saveearnshare.com/:splat"
   status = 301
   force = true
 
+# Remove trailing slashes
+[[redirects]]
+  from = "/*/"
+  to = "/:splat"
+  status = 301
+  force = true
+
+# SPA fallback - must be last
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-  conditions = {method = ["GET"]}
+  force = false
 
 [[headers]]
   for = "/sitemap-index.xml"
