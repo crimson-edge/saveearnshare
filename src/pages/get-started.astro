@@ -4,38 +4,43 @@ import Card from '../components/Card.astro';
 
 const steps = [
   {
-    title: 'Assess Your Financial Situation',
-    body: 'Use our calculators to understand your current financial position and plan your next steps.',
-    href: '/calculators',
+    title: 'Learn Couponing Basics →',
+    description: 'Master the fundamentals of digital coupons, stacking strategies, and cashback apps to maximize your savings.',
+    href: '/digital-couponing-guide'
   },
   {
-    title: 'Learn Money-Saving Strategies',
-    body: 'Explore our comprehensive guides on digital couponing and store rewards programs.',
-    href: '/digital-couponing-guide',
+    title: 'Learn Money-Saving Strategies →',
+    description: 'Explore our comprehensive guides on digital couponing and store rewards programs.',
+    href: '/store-rewards-guide'
   },
   {
-    title: 'Start Saving Today',
-    body: 'Access our coupon database and use our savings calculator to maximize your savings.',
-    href: '/coupon-database',
-  },
+    title: 'Start Saving Today →',
+    description: 'Access our coupon database and use our savings calculator to maximize your savings.',
+    href: '/coupon-database'
+  }
 ];
 ---
 
-<Layout title="Get Started | SaveEarnShare">
-  <main class="container mx-auto px-4 py-8">
-    <h1 class="text-4xl font-bold text-center mb-8">Get Started with SaveEarnShare</h1>
-    <p class="text-lg text-center mb-12">
-      Follow these simple steps to begin your journey towards financial success.
+<Layout 
+  title="Get Started with SaveEarnShare"
+  description="Follow these simple steps to begin your journey towards extreme couponing and maximum savings."
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h1 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-6">
+      Get Started with SaveEarnShare
+    </h1>
+    <p class="text-xl text-center text-gray-600 dark:text-gray-300 mb-12">
+      Follow these simple steps to begin your journey towards extreme couponing success.
     </p>
 
-    <ul class="max-w-3xl mx-auto space-y-6">
+    <div class="space-y-6">
       {steps.map((step) => (
         <Card
           title={step.title}
-          body={step.body}
+          description={step.description}
           href={step.href}
         />
       ))}
-    </ul>
-  </main>
+    </div>
+  </div>
 </Layout>
