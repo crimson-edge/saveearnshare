@@ -1,27 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://saveearnshare.com/</loc>
-    <lastmod>2024-12-14</lastmod>
+    <loc>https://saveearnshare.com</loc>
+    <lastmod>2024-12-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://saveearnshare.com/resources</loc>
-    <lastmod>2024-12-14</lastmod>
+    <loc>https://saveearnshare.com/calculators</loc>
+    <lastmod>2024-12-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://saveearnshare.com/calculators</loc>
-    <lastmod>2024-12-14</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://saveearnshare.com/get-started</loc>
+    <lastmod>2024-12-22</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://saveearnshare.com/blog</loc>
-    <lastmod>2024-12-14</lastmod>
+    <lastmod>2024-12-22</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://saveearnshare.com/coupon-database</loc>
+    <lastmod>2024-12-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://saveearnshare.com/digital-couponing-guide</loc>
+    <lastmod>2024-12-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://saveearnshare.com/store-rewards-guide</loc>
+    <lastmod>2024-12-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
