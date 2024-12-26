@@ -5,6 +5,13 @@
 [build.environment]
   NODE_VERSION = "18"
 
+# Exclude sitemap from redirects
+[[redirects]]
+  from = "https://www.saveearnshare.com/sitemap.xml"
+  to = "/sitemap.xml"
+  status = 200
+  force = true
+
 # HTTP WWW to HTTPS WWW redirect
 [[redirects]]
   from = "http://www.saveearnshare.com/*"
