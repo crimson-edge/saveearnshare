@@ -3,7 +3,7 @@ import tailwind from '@astrojs/tailwind';
 import netlify from '@astrojs/netlify';
 
 export default defineConfig({
-  site: 'https://saveearnshare.com',
+  site: 'https://www.saveearnshare.com',
   trailingSlash: 'never',
   build: {
     format: 'directory'
