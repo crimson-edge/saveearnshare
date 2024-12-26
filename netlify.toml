@@ -5,17 +5,24 @@
 [build.environment]
   NODE_VERSION = "18"
 
-# WWW to non-WWW redirect
+# HTTP WWW to HTTPS WWW redirect
 [[redirects]]
-  from = "https://www.saveearnshare.com/*"
-  to = "https://saveearnshare.com/:splat"
+  from = "http://www.saveearnshare.com/*"
+  to = "https://www.saveearnshare.com/:splat"
   status = 301
   force = true
 
-# HTTP to HTTPS redirect
+# HTTP non-WWW to HTTPS WWW redirect
 [[redirects]]
-  from = "http://*"
-  to = "https://:splat"
+  from = "http://saveearnshare.com/*"
+  to = "https://www.saveearnshare.com/:splat"
+  status = 301
+  force = true
+
+# HTTPS non-WWW to WWW redirect
+[[redirects]]
+  from = "https://saveearnshare.com/*"
+  to = "https://www.saveearnshare.com/:splat"
   status = 301
   force = true
 
