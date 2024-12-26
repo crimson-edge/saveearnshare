@@ -5,25 +5,21 @@
 [build.environment]
   NODE_VERSION = "18"
 
-[[headers]]
-  for = "/sitemap*.xml"
-  [headers.values]
-    Content-Type = "application/xml"
-    X-Robots-Tag = "noindex"
-
-# HTTP to HTTPS redirect
-[[redirects]]
-  from = "http://:domain/*"
-  to = "https://:domain/:splat"
-  status = 301
-  force = true
-
-# non-WWW to WWW redirect
+# non-WWW to WWW redirect (only for non-sitemap URLs)
 [[redirects]]
   from = "https://saveearnshare.com/*"
   to = "https://www.saveearnshare.com/:splat"
   status = 301
   force = true
+  conditions = {Path = {not = ["/sitemap.xml"]}}
+
+# HTTP to HTTPS redirect (only for non-sitemap URLs)
+[[redirects]]
+  from = "http://:domain/*"
+  to = "https://:domain/:splat"
+  status = 301
+  force = true
+  conditions = {Path = {not = ["/sitemap.xml"]}}
 
 [[headers]]
   for = "/*"
