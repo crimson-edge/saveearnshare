@@ -5,28 +5,20 @@
 [build.environment]
   NODE_VERSION = "18"
 
-# Exclude sitemap from redirects
-[[redirects]]
-  from = "https://www.saveearnshare.com/sitemap.xml"
-  to = "/sitemap.xml"
-  status = 200
-  force = true
+[[headers]]
+  for = "/sitemap*.xml"
+  [headers.values]
+    Content-Type = "application/xml"
+    X-Robots-Tag = "noindex"
 
-# HTTP WWW to HTTPS WWW redirect
+# HTTP to HTTPS redirect
 [[redirects]]
-  from = "http://www.saveearnshare.com/*"
-  to = "https://www.saveearnshare.com/:splat"
+  from = "http://:domain/*"
+  to = "https://:domain/:splat"
   status = 301
   force = true
 
-# HTTP non-WWW to HTTPS WWW redirect
-[[redirects]]
-  from = "http://saveearnshare.com/*"
-  to = "https://www.saveearnshare.com/:splat"
-  status = 301
-  force = true
-
-# HTTPS non-WWW to WWW redirect
+# non-WWW to WWW redirect
 [[redirects]]
   from = "https://saveearnshare.com/*"
   to = "https://www.saveearnshare.com/:splat"
